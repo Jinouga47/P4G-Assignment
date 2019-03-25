@@ -1,0 +1,46 @@
+21/03/2019
+-Added Player.cpp and Player.h; these are copies of the BallSim counterparts
+-Added basic movement to a rendered cube; the code resides in Game.cpp
+
+22/03/2019
+-Added new function 'Move()' in PlayerControl.cpp
+
+23/03/2019
+-Added in movement functionality in PlayerControl.cpp
+-Changed 'Left' and 'Right' variable values from -0.005 and 0.005 to
+ -0.002 and -0.002 respectively.
+-Changed vector value for gravity; removed 0.5 modifier
+-Changed 'Input' in PlayerControl.cpp to 'Input(float dTime, MouseAndKeys& input)'
+-Commented out gamepad inputs from 'Input' function due to errors
+-Created new boolean variable 'Airborne'; used to determine whether
+ the player is in the air or not. Is used in 'Input' and 'Update'.
+-Moved bounce code to 'Input'; code comes into play when conditions are met,
+ not everytime the touch the groud like previously. The remaining code sets
+ the player on top of the ground using the vector and sets 'Airborne' to false.
+-Added If statement to set 'dTime' to 0 if the player is on the ground
+-Renamed 'Move()' to 'Input()' and removed the original 'Input()'
+
+24/03/2019
+-Removed float parameter from 'Input()' in 'PlayerControl.cpp'
+-Changed the vector assigned to 'mBall.GetPosition()' in
+ 'PlayerControl::Start()'from 0,0.5f,0 to 0,0,0
+-Changed 'mVel' vector value from (0,1,0)*3 to (0,1,0)*4 in
+ 'PlayerControl.cpp's 'Start()' function
+-Altered the 'Update()' function in 'PlayerControl.cpp'; it now takes
+ two float parameters instead of one. This is so it has two dTimes for
+ the jumps.
+-Added If statements in 'PlayerControl.cpp's 'Input()' function to handle
+ double jumping.
+-Added new float variable 'mDblVel' which is used for double jumping
+-Added If statements to accomodate for double jumping
+-Added comments to 'PlayerControl.cpp'
+-Removed 'mDblVel.y *= -1' from double jump If statement in 'Input'; this
+ was causing the player to essentially fast fall to the ground instead of
+ jump a second time.
+-#Implemented doule jump mechanic#
+-Removed 'Held'varibale and associated code; after further testing,
+ it was found that it didn't actually help/isn't needed.
+
+#TODO#
+
+-21/03/2019: Find out how the collision works and how to remove the hitboxes

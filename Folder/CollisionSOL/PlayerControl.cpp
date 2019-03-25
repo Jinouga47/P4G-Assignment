@@ -117,7 +117,7 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 		dTime = 0;
 		dTime2 = 0;
 	}
-	//If the Player is Airborne and they haven't used they're double jump, dTime2 is set to 0 so they're
+	//If the Player is Airborne and they haven't used their double jump, dTime2 is set to 0 so they're
 	//still able to jump a second time.
 	else if (Airborne && SecondJump)
 		dTime2 = 0;
@@ -127,7 +127,7 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	//If the Player is airborne and uses their second jump, their position is determined using dTime2 and mDblVel
 	//instead of dTime and mVel. mDblVel and dTime2 are basically what mVel and dTime would be if the player was
-	//on the ground, thus treating their airborne stat as a psudeo grounded state in order for them to jump again.
+	//on the ground, thus treating their airborne state as a psudeo grounded state in order for them to jump again.
 	if(Airborne && !SecondJump)
 		pos += mDblVel * dTime2;
 	else
@@ -135,6 +135,7 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	//Checks to see if the Player is beneath the floor. If they are their position is set so they are place
 	//'on top' of it and the boolean states are set so the Player is treated as though they're on the ground.
+	//#THIS WILL BE ALTERED WHEN COLLISION IS ADDED#
 	if (pos.y < mRadius)
 	{
 		pos.y = mRadius;
@@ -220,7 +221,7 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstringstream ss;
 	ss << std::setprecision(3);
 	ss << L"Position=" << mBall.GetPosition().y;
-	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.65f, 0.65f));
+	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;
 	sq << std::setprecision(3);
@@ -230,11 +231,11 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstringstream sw;
 	sw << std::setprecision(3);
 	sw << L"Double Velocity=" << mDblVel.y;
-	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 45), Colours::White, 0, Vector2(0, 0), Vector2(0.75f, 0.75f));
+	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 45), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream se;
 	se << std::setprecision(3);
 	se << L"Held State=" << Held;
-	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 60), Colours::White, 0, Vector2(0, 0), Vector2(0.8f, 0.8f));
+	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 60), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 }
 
