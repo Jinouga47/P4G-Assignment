@@ -24,11 +24,11 @@ void PlayerControl::Initialise(MeshManager& mgr)
 	mat.flags &= ~MaterialExt::TFlags::CCW_WINDING;
 	mBall.SetOverrideMat(&mat);
 	//mLastMode = mMode = Mode::WAITING;
-	//p = mgr.GetMesh("cube");
-	//assert(p);
-	//mCube.Initialise(*p);
+	p = mgr.GetMesh("cube");
+	assert(p);
+	mCube.Initialise(*p);
 
-	//mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
+	mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
 
 	Start();
 }
@@ -68,32 +68,36 @@ void PlayerControl::Input(MouseAndKeys& input) {
 	}
 }
 
-//bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
-//{
-//	Vector3 cn;
-//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
-//	{
-//		//cube collision
-//		if (SphereToAABBox(box, sphere, cn))
-//		{
-//			//we're inside, but are we already trying to escape?
-//			//if we are not trying to escape then reflect our velocity and move away
-//			Vector3 d(vel);
-//			d.Normalize();
-//			float escaping = cn.Dot(d);
-//			if (escaping < 0)
-//			{
-//				//not an escape angle so reflect
-//				vel = Vector3::Reflect(vel, cn);
-//				vel *= COR;
-//				pos = sphere.Center;
-//				pos += vel * dTime;
-//			}
-//			return true;
-//		}
-//	}
-//	return false;
-//}
+bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
+{
+	Vector3 cn;
+	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+	{
+		//cube collision
+		if (SphereToAABBox(box, sphere, cn))
+		{
+			//we're inside, but are we already trying to escape?
+			//if we are not trying to escape then reflect our velocity and move away
+			Vector3 d(vel);
+			d.Normalize();
+			float escaping = cn.Dot(d);
+			if (escaping < 0)
+			{
+				//not an escape angle so reflect
+				vel = Vector3::Reflect(vel, cn);
+				vel *= COR;
+				pos = sphere.Center;
+				pos += vel * dTime;
+			}
+			return true;
+
+
+
+
+		}
+	}
+	return false;
+}
 
 void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, Model& rock)
 {
@@ -138,11 +142,13 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 	//#THIS WILL BE ALTERED WHEN COLLISION IS ADDED#
 	if (pos.y < mRadius)
 	{
+		
 		pos.y = mRadius;
 		Airborne = false;
 		SecondJump = false;
 		mDblVel = Vector3(0, 1, 0) * 4;
 	}
+	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 	mBall.GetPosition() = pos;
 
 	//apply accelerations unless we've come to a halt
@@ -172,6 +178,9 @@ void PlayerControl::Render(FX::MyFX& fx, float dTime)
 {
 	fx.Render(mBall, gd3dImmediateContext);
 	FX::SetupPointLight(1, true, mBall.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
+	mCube.GetPosition() = Vector3(1, 1, 0);
+	mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
+	fx.Render(mCube, gd3dImmediateContext);
 
 	/*switch (mMode)
 	{

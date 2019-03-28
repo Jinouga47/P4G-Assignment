@@ -145,32 +145,32 @@ void BallSim::Start()
 	}
 }
 
-bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
-{
-	Vector3 cn;
-	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
-	{
-		//cube collision
-		if (SphereToAABBox(box, sphere, cn))
-		{
-			//we're inside, but are we already trying to escape?
-			//if we are not trying to escape then reflect our velocity and move away
-			Vector3 d(vel);
-			d.Normalize();
-			float escaping = cn.Dot(d);
-			if (escaping < 0)
-			{
-				//not an escape angle so reflect
-				vel = Vector3::Reflect(vel, cn);
-				vel *= COR;
-				pos = sphere.Center;
-				pos += vel * dTime;
-			}
-			return true;
-		}
-	}
-	return false;
-}
+//bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
+//{
+//	Vector3 cn;
+//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+//	{
+//		//cube collision
+//		if (SphereToAABBox(box, sphere, cn))
+//		{
+//			//we're inside, but are we already trying to escape?
+//			//if we are not trying to escape then reflect our velocity and move away
+//			Vector3 d(vel);
+//			d.Normalize();
+//			float escaping = cn.Dot(d);
+//			if (escaping < 0)
+//			{
+//				//not an escape angle so reflect
+//				vel = Vector3::Reflect(vel, cn);
+//				vel *= COR;
+//				pos = sphere.Center;
+//				pos += vel * dTime;
+//			}
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 
 void BallSim::Update(float dTime, const Vector3& camPos, MouseAndKeys& input, Model& rock)
 {
@@ -213,13 +213,13 @@ void BallSim::Update(float dTime, const Vector3& camPos, MouseAndKeys& input, Mo
 	case Mode::CUBE:
 	case Mode::CUBE_MOUSE:
 		{
-			CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f,0.25f,0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
+			//CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f,0.25f,0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 			break;
 		}
 	case Mode::MULTI:
 		{
 		for(auto& c : mCubes)
-			CollisionManager(BoundingBox(c.GetPosition(), Vector3(CUBE_SCALE,CUBE_SCALE,CUBE_SCALE)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
+			//CollisionManager(BoundingBox(c.GetPosition(), Vector3(CUBE_SCALE,CUBE_SCALE,CUBE_SCALE)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 		break;
 		}
 	}

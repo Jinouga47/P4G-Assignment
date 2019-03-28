@@ -41,6 +41,10 @@
 -Removed 'Held'varibale and associated code; after further testing,
  it was found that it didn't actually help/isn't needed.
 
+28/03/2019
+-Uncommented code for collision and cube rendering in 'PlayerControl.cpp'
+-Commented out 'COllisionManager()' in 'BallSim.cpp' to prevent errors due to previous change
+
 #TODO#
 
 -21/03/2019: Find out how the collision works and how to remove the hitboxes
