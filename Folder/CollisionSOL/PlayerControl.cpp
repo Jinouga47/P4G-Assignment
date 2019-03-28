@@ -48,6 +48,8 @@ void PlayerControl::Input(MouseAndKeys& input) {
 		mBall.GetPosition().x += Left;
 	else if (input.IsPressed(VK_D))// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
 		mBall.GetPosition().x += Right;
+	else
+		mVel.x = 0;
 	if (input.IsPressed(VK_W) && !Airborne)// && !Held)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_UP))
 	{
 		//bounce up
@@ -128,7 +130,6 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	Vector3 pos = mBall.GetPosition();
 
-
 	//If the Player is airborne and uses their second jump, their position is determined using dTime2 and mDblVel
 	//instead of dTime and mVel. mDblVel and dTime2 are basically what mVel and dTime would be if the player was
 	//on the ground, thus treating their airborne state as a psudeo grounded state in order for them to jump again.
@@ -148,7 +149,8 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 		SecondJump = false;
 		mDblVel = Vector3(0, 1, 0) * 4;
 	}
-	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
+	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), Vector3(1, mVel.y, mVel.z), pos, mCOR, dTime);
+	//CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 	mBall.GetPosition() = pos;
 
 	//apply accelerations unless we've come to a halt
