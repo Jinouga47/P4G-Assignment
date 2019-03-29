@@ -45,11 +45,17 @@ void PlayerControl::Start()
 
 void PlayerControl::Input(MouseAndKeys& input) {
 	if (input.IsPressed(VK_A))// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
+	{
 		mBall.GetPosition().x += Left;
+		Direction = -1;
+	}
 	else if (input.IsPressed(VK_D))// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
+	{
 		mBall.GetPosition().x += Right;
+		Direction = 1;
+	}
 	else
-		mVel.x = 0;
+		Direction = 0;
 	if (input.IsPressed(VK_W) && !Airborne)// && !Held)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_UP))
 	{
 		//bounce up
@@ -70,7 +76,7 @@ void PlayerControl::Input(MouseAndKeys& input) {
 	}
 }
 
-bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
+bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime, Model& cube)
 {
 	Vector3 cn;
 	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
@@ -85,17 +91,17 @@ bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vect
 			float escaping = cn.Dot(d);
 			if (escaping < 0)
 			{
+				if (cube.GetPosition().x > pos.x)
+					pos.x -= 0.002f;
+				else
+					pos.x += 0.002f;
 				//not an escape angle so reflect
-				vel = Vector3::Reflect(vel, cn);
-				vel *= COR;
-				pos = sphere.Center;
-				pos += vel * dTime;
+				//vel = Vector3::Reflect(vel, cn);
+				//vel *= COR;
+				//pos = sphere.Center;
+				//pos += vel * dTime;
 			}
 			return true;
-
-
-
-
 		}
 	}
 	return false;
@@ -149,7 +155,7 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 		SecondJump = false;
 		mDblVel = Vector3(0, 1, 0) * 4;
 	}
-	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), Vector3(1, mVel.y, mVel.z), pos, mCOR, dTime);
+	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), Vector3(Direction, mVel.y, mVel.z), pos, mCOR, dTime, mCube);
 	//CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 	mBall.GetPosition() = pos;
 
@@ -246,7 +252,7 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 
 	wstringstream se;
 	se << std::setprecision(3);
-	se << L"Held State=" << Held;
+	se << L"Direction=" << mVel.x;
 	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 60), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 }
 

@@ -21,6 +21,7 @@ public:
 	float mRadius = 0.1f;
 	float Left = -0.002f;
 	float Right = 0.002f;
+	int Direction = 0;
 	bool Airborne = false, SecondJump = false, Held = false;
 	enum class Mode { WAITING, LINEAR, LINEAR_ACCEL, BOUNCE_INF, BOUNCE, CUBE, CUBE_MOUSE, MULTI };
 	Mode mMode, mLastMode;

@@ -45,6 +45,8 @@
 -Uncommented code for collision and cube rendering in 'PlayerControl.cpp'
 -Commented out 'COllisionManager()' in 'BallSim.cpp' to prevent errors due to previous change
 
-#TODO#
+29/032019
+-Added new int variable 'Direction'; this is used to determine which way the user is facing
+ so they can't pass through walls in that direction, triggering the 'collision'.
 
--21/03/2019: Find out how the collision works and how to remove the hitboxes
+#TODO#
