@@ -45,8 +45,24 @@
 -Uncommented code for collision and cube rendering in 'PlayerControl.cpp'
 -Commented out 'COllisionManager()' in 'BallSim.cpp' to prevent errors due to previous change
 
-29/032019
+29/03/2019
 -Added new int variable 'Direction'; this is used to determine which way the user is facing
  so they can't pass through walls in that direction, triggering the 'collision'.
+-Altered 'CollisionManager' so that it takes less parameters; the parameters for
+ velocity, dTime and COR were removed entirely. Also, the return statements were
+ altered so that the function returns true when on top of a cube, essentially
+ a 'grounded' state.
+-Removed unnecessary code from 'RenderText()' in 'PlayerControl.cpp'
+
+30/03/2019
+-Removed unnecessary code from 'Update()' in 'PlayerControl.cpp'
+-Rewrote If statements for collision inside 'CollisionManager()' in 'PlayerControl.cpp';
+ the statements now use for vectors which represent four 'corners' of the cube.
+ If the player comes into contact with the line in which two corners form,
+ they react accordingly. This is a way of detecting which side the player is on.
 
 #TODO#
+-29/03/2019: Add in wall clinging. Try using an If statement that checks
+	     if the Direction variable; if the user is still 'facing' the
+	     cube then slow gravity by half. This may lead to an issue
+	     with dTime so try reseting it to 0 if they're wall clinging.

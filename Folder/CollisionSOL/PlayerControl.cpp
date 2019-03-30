@@ -76,32 +76,81 @@ void PlayerControl::Input(MouseAndKeys& input) {
 	}
 }
 
-bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime, Model& cube)
+//bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, int dir, float COR, float dTime, Model& cube)
+//{
+//	Vector3 cn;
+//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+//	{
+//		//cube collision
+//		if (SphereToAABBox(box, sphere, cn))
+//		{
+//			//we're inside, but are we already trying to escape?
+//			//if we are not trying to escape then reflect our velocity and move away
+//			Vector3 d(vel);
+//			d.Normalize();
+//			float escaping = cn.Dot(d);
+////			if (escaping < 0)
+//			if (true)
+//			{
+//				if (cube.GetPosition().x > pos.x && dir == 1)
+//					pos.x -= 0.002f;
+//				else if (cube.GetPosition().x < pos.x && dir == -1)
+//					pos.x += 0.002f;
+//				else if (cube.GetPosition().y > pos.y)
+//					pos.y -= 0.002f;
+//				else if (cube.GetPosition().y < pos.y) {
+//					pos.y += 0.002f;
+//					return true;
+//				}					
+//				//not an escape angle so reflect
+//				//vel = Vector3::Reflect(vel, cn);
+//				//vel *= COR;
+//				//pos = sphere.Center;
+//				//pos += vel * dTime;
+//			}
+//			/*else
+//				pos.y -= 0.02f;*/
+//			return false;
+//		}
+//	}
+//	return false;
+//}
+
+bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& pos, int dir, Model& cube)
 {
 	Vector3 cn;
+	Vector3 A, B, C, D;
+	A = Vector3(cube.GetPosition().x - 0.3, cube.GetPosition().y + 0.3, 1);
+	B = Vector3(cube.GetPosition().x - 0.3, cube.GetPosition().y - 0.3, 1);
+	C = Vector3(cube.GetPosition().x + 0.3, cube.GetPosition().y - 0.3, 1);
+	D = Vector3(cube.GetPosition().x + 0.3, cube.GetPosition().y + 0.3, 1);
 	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
 	{
 		//cube collision
 		if (SphereToAABBox(box, sphere, cn))
 		{
-			//we're inside, but are we already trying to escape?
-			//if we are not trying to escape then reflect our velocity and move away
-			Vector3 d(vel);
-			d.Normalize();
-			float escaping = cn.Dot(d);
-			if (escaping < 0)
-			{
-				if (cube.GetPosition().x > pos.x)
-					pos.x -= 0.002f;
-				else
-					pos.x += 0.002f;
-				//not an escape angle so reflect
-				//vel = Vector3::Reflect(vel, cn);
-				//vel *= COR;
-				//pos = sphere.Center;
-				//pos += vel * dTime;
+			/*if (cube.GetPosition().x + 0.3 > pos.x - 0.1 && dir == 1)
+				pos.x -= 0.002f;
+			else if (cube.GetPosition().x - 0.3 < pos.x + 0.1 && dir == -1)
+				pos.x += 0.002f;
+			else if (cube.GetPosition().y + 0.3 > pos.y - 0.1)
+				pos.y -= 0.002f;
+			else if (cube.GetPosition().y - 0.3 < pos.y + 0.1) {
+				pos.y = cube.GetPosition().x + cube.GetScale().x + 0.1;
+				pos.y -= 0.0001f;
+				return true;*/
+			if((pos.x <= A.x) && (pos.x <= B.x) && (pos.y + 0.1 <= A.y) && (pos.y - 0.1 >= B.y) && dir == 1)
+				pos.x -= 0.002f;
+			else if((pos.x >= D.x) && (pos.x >= C.x) && (pos.y + 0.1 <= D.y) && (pos.y - 0.1 >= C.y) && dir == -1)
+				pos.x += 0.002f;
+			else if((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x))
+				pos.y -= 0.002f;
+			else if ((pos.y >= A.y) && (pos.y >= D.y) && (pos.x + 0.1 >= A.x) && (pos.y - 0.1 <= D.x)) {
+				pos.y = cube.GetPosition().x + cube.GetScale().x + 0.1;
+				pos.y -= 0.0001f;
+				return true;
 			}
-			return true;
+		return false;
 		}
 	}
 	return false;
@@ -113,15 +162,6 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	if (mVel.y > 4)
 		mVel.y = 4;
-
-	////Used to determine whether the button is still being pressed. This stops the If statements in Input
-	////constantly being called, which messes with the velocity of the jumps.
-	//if ((!Held && input.IsPressed(VK_W)) || (!Held && input.IsPressed(VK_S)))
-	////if ((!Held && input.IsPressed(VK_S)) || (Held && input.IsPressed(VK_W)))//Test ver.
-	//	Held = true;
-	//else if ((Held && !input.IsPressed(VK_W)) || (Held && !input.IsPressed(VK_S)))
-	////else if((Held && input.IsPressed(VK_W)) || (Held && !input.IsPressed(VK_S)))//Test ver.
-	//	Held = false;
 
 	//If the Player is not Airborne (meaning they're on the ground), dTime won't change. This stops
 	//the player object from jumping as dTime is used for that.
@@ -146,16 +186,23 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	//Checks to see if the Player is beneath the floor. If they are their position is set so they are place
 	//'on top' of it and the boolean states are set so the Player is treated as though they're on the ground.
-	//#THIS WILL BE ALTERED WHEN COLLISION IS ADDED#
 	if (pos.y < mRadius)
 	{
-		
 		pos.y = mRadius;
 		Airborne = false;
 		SecondJump = false;
 		mDblVel = Vector3(0, 1, 0) * 4;
+		mVel = Vector3(0, 1, 0) * -4;
 	}
-	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), Vector3(Direction, mVel.y, mVel.z), pos, mCOR, dTime, mCube);
+	else if (CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), pos, Direction, mCube))
+	{
+		pos.y = mCube.GetPosition().y + 0.4f;
+		Airborne = false;
+		SecondJump = false;
+		mDblVel = Vector3(0, 1, 0) * 4;
+		mVel = Vector3(0, 1, 0) * -4;
+	}
+	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), pos, Direction, mCube);
 	//CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), mVel, pos, mCOR, dTime);
 	mBall.GetPosition() = pos;
 
@@ -205,54 +252,29 @@ void PlayerControl::Render(FX::MyFX& fx, float dTime)
 
 void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 {
-	wstring mssg;
-	/*switch (mMode)
-	{
-	case Mode::WAITING:
-		mssg = L"mode = Mode::WAITING";
-		break;
-	case Mode::LINEAR:
-		mssg = L"mode = Mode::LINEAR, no gravity";
-		break;
-	case Mode::LINEAR_ACCEL:
-		mssg = L"mode = Mode::LINEAR accel, no gravity";
-		break;
-	case Mode::BOUNCE_INF:
-		mssg = L"mode = Bounce infinite";
-		break;
-	case Mode::BOUNCE:
-		mssg = L"mode = Bounce";
-		break;
-	case Mode::CUBE:
-		mssg = L"mode = Cube";
-		break;
-	case Mode::CUBE_MOUSE:
-		mssg = L"mode = Cube - mouse control";
-		break;
-	case Mode::MULTI:
-		mssg = L"mode = Cube - multi";
-		break;
-	}*/
-	//pF->DrawString(pBatch, mssg.c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0));
-
 	wstringstream ss;
 	ss << std::setprecision(3);
-	ss << L"Position=" << mBall.GetPosition().y;
+	ss << L"Position 'x'=" << mBall.GetPosition().x << L"\nPosition 'y'=" << mBall.GetPosition().y;
 	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;
 	sq << std::setprecision(3);
 	sq << L"Velocity=" << mVel.y;
-	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 30), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+
+	/*wstringstream sw;
+	sw << std::setprecision(3);
+	sw << L"Double Velocity=" << mDblVel.y;
+	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 65), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));*/
 
 	wstringstream sw;
 	sw << std::setprecision(3);
-	sw << L"Double Velocity=" << mDblVel.y;
-	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 45), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	sw << L"Cube Position 'x'=" << mCube.GetPosition().x;
+	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 65), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream se;
 	se << std::setprecision(3);
-	se << L"Direction=" << mVel.x;
-	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 60), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	se << L"Direction=" << Direction;
+	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 }
 
