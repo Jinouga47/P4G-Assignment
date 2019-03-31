@@ -60,9 +60,20 @@
  the statements now use for vectors which represent four 'corners' of the cube.
  If the player comes into contact with the line in which two corners form,
  they react accordingly. This is a way of detecting which side the player is on.
+-Altered If statement that alters dTime; is now uses 'CollisionManager()'
+ as the parameter to determine whether the player is in a 'grounded' state.
+-Added new variable 'Cling'; this is to be used when the player is pushing
+ against the wall to slow their descent
+-Added code for wall jumping in 'CollisionManager()' and 'Input()' in
+ 'PlayerControl.cpp'.
+-Altered 'CollisionManager()' parameters; it nows takes in 'Airborne'
+ and 'Cling' to accomodate for the wall jump code addition.
+-Commented out all wall jump code
 
 #TODO#
 -29/03/2019: Add in wall clinging. Try using an If statement that checks
 	     if the Direction variable; if the user is still 'facing' the
 	     cube then slow gravity by half. This may lead to an issue
 	     with dTime so try reseting it to 0 if they're wall clinging.
+
+-30/03/2019: Add in wall jumping
