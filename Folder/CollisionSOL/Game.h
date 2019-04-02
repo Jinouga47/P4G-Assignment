@@ -11,6 +11,7 @@
 #include "Input.h"
 #include "BallSim.h"
 #include "PlayerControl.h"
+#include "LevelBuilder.h"
 
 //wrap up comon behaviours, initialisation+shutdown
 class Game
@@ -74,6 +75,7 @@ private:
 	Gamepad mGamepad;
 	BallSim mBallSim;
 	PlayerControl mPlayer;
+	LevelBuilder mBuilder;
 
 
 	DirectX::SimpleMath::Vector3 CubePos;

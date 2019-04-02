@@ -64,11 +64,18 @@
  as the parameter to determine whether the player is in a 'grounded' state.
 -Added new variable 'Cling'; this is to be used when the player is pushing
  against the wall to slow their descent
+
+31/03/2019
 -Added code for wall jumping in 'CollisionManager()' and 'Input()' in
  'PlayerControl.cpp'.
 -Altered 'CollisionManager()' parameters; it nows takes in 'Airborne'
  and 'Cling' to accomodate for the wall jump code addition.
 -Commented out all wall jump code
+
+01/04/2019
+-Added new cpp and header file 'LevelBuilder'; these are used render the level
+ layout.
+-Removed unnecessary code from 'Game.cpp'
 
 #TODO#
 -29/03/2019: Add in wall clinging. Try using an If statement that checks

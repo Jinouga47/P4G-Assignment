@@ -55,6 +55,7 @@ void Game::Load()
 
 	//mBallSim.Initialise(mMeshMgr);
 	mPlayer.Initialise(mMeshMgr);
+	//mBuilder.Initialise(mMeshMgr);
 
 }
 
@@ -133,32 +134,10 @@ void Game::Update(float dTime)
 
 	CubePos = mCube.GetPosition();
 
-	//Vector3 Left = Vector3(-0.005f, 0, 0);
-	//Vector3 Right = Vector3(0.005f, 0, 0);
-
 	float Left = -0.005f;
 	float Right = 0.005f;
 
 	mCube.GetScale() = Vector3(0.2f, 0.2f, 0.2f);
-
-	/*if (mMKInput.IsPressed(VK_A))
-			mCamPos.y += camInc;
-	else if(mMKInput.IsPressed(VK_Z))
-			mCamPos.y -= camInc;
-	else if (mMKInput.IsPressed(VK_D))
-			mCamPos.x -= camInc;
-	else if (mMKInput.IsPressed(VK_F))
-			mCamPos.x += camInc;
-	else if (mMKInput.IsPressed(VK_W))
-			mCamPos.z += camInc;
-	else if (mMKInput.IsPressed(VK_S))
-			mCamPos.z -= camInc;*/
-
-	/*if (mMKInput.IsPressed(VK_A))
-		CubePos.x += Left;
-	else if (mMKInput.IsPressed(VK_D))
-		CubePos.x += Right;*/
-	//mPlayer.Input(dTime, mMKInput);
 
 
 	mCamPos.x += mGamepad.GetState(0).leftStickX * dTime;
@@ -168,7 +147,6 @@ void Game::Update(float dTime)
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
-	//mBallSim.Update(dTime, mCamPos,mMKInput, mRock);
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mRock);
 }
 
@@ -199,6 +177,7 @@ void Game::Render(float dTime)
 
 	//mBallSim.Render(mFX, dTime);
 	mPlayer.Render(mFX, dTime);
+	//mBuilder.Render(mFX);
 
 	//floor
 	mQuad.GetPosition() = Vector3(0, 0, 0);
