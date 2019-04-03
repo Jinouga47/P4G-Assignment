@@ -19,8 +19,8 @@ public:
 	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
 	void Initialise(MeshManager& mgr);//, int levelSize);
 	void Render(FX::MyFX& fx);//, int levelSize);
-	void Start();
+	Model GetCubes(int i);
 private:
-
+	
 };
 #endif

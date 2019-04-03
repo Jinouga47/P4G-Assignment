@@ -38,12 +38,6 @@ void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 		//Puts the the cube in the array
 	}
 
-	//Start();
-}
-
-void Start()
-{
-
 }
 
 void LevelBuilder::Render(FX::MyFX& fx)//, int levelSize)
@@ -51,4 +45,8 @@ void LevelBuilder::Render(FX::MyFX& fx)//, int levelSize)
 	for (int i = 0; i < 10; i++) {
 		fx.Render(mCubes[i], gd3dImmediateContext);
 	}
+}
+
+Model LevelBuilder::GetCubes(int i) {
+	return mCubes[i];
 }

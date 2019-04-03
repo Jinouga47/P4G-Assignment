@@ -147,7 +147,7 @@ void Game::Update(float dTime)
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
-	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mRock);
+	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mBuilder);
 }
 
 
