@@ -12,15 +12,13 @@ class LevelBuilder
 {
 public:
 	Model mCube;
-	void Initialise(MeshManager& mgr);
-	void Render(FX::MyFX& fx);
+	Model mCubes[100];
+	int test[3][2] = { {0,0},{1,0},{2,0} };
+	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
+	void Initialise(MeshManager& mgr);//, int levelSize);
+	void Render(FX::MyFX& fx);//, int levelSize);
 	void Start();
 private:
-	struct cube {
-		int x, y;
-		Model model;
-	};
-	cube test;
-	std::vector<cube> mCubes;
+
 };
 #endif

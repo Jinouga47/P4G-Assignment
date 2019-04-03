@@ -55,7 +55,7 @@ void Game::Load()
 
 	//mBallSim.Initialise(mMeshMgr);
 	mPlayer.Initialise(mMeshMgr);
-	//mBuilder.Initialise(mMeshMgr);
+	mBuilder.Initialise(mMeshMgr);
 
 }
 
@@ -177,7 +177,7 @@ void Game::Render(float dTime)
 
 	//mBallSim.Render(mFX, dTime);
 	mPlayer.Render(mFX, dTime);
-	//mBuilder.Render(mFX);
+	mBuilder.Render(mFX);
 
 	//floor
 	mQuad.GetPosition() = Vector3(0, 0, 0);

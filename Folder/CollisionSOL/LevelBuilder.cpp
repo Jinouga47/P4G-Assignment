@@ -15,29 +15,37 @@ const float CUBE_SCALE = 0.2f;
 //void Initialise(MeshManager& mgr) {
 //
 //}
-//void LevelBuilder::Initialise(MeshManager& mgr)
-//{
-//	Mesh *p = mgr.GetMesh("cube");
-//	assert(p);
-//	mCube.Initialise(*p);
-//	cube test = { 0, 0, mCube };
-//	vector<cube> cubes(3, test);
-//	//mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
-//
-//	Start();
-//}
-//
-//void Start()
-//{
-//
-//}
-//
-//void LevelBuilder::Render(FX::MyFX& fx)
-//{
-//	for (int i = 0; i < 3; i++) {
-//		mCubes.at(i).x = i;
-//		mCubes.at(i).y = 1;
-//		//mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
-//		fx.Render(mCubes.at(i).model, gd3dImmediateContext);
-//	}
-//}
+void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
+{
+	Mesh *p = mgr.GetMesh("cube");
+	assert(p);
+	mCube.Initialise(*p);
+
+	//Sets up the array for the cubes that make up the level
+	for (int i = 0; i < 3; i++) {
+		//The '3' will be replaced with the size of the array in that will be used
+		//to hold the coordinates of the cube.
+
+		mCube.GetPosition() = Vector3(i, 1, 0);
+		//The 'i' and '1' will be replaced with the array positions of the
+		//cubes 'x' and 'y' coordinates respectively
+
+		mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
+		mCubes[i] = mCube;
+		//Puts the the cube in the array
+	}
+
+	//Start();
+}
+
+void Start()
+{
+
+}
+
+void LevelBuilder::Render(FX::MyFX& fx)//, int levelSize)
+{
+	for (int i = 0; i < 3; i++) {
+		fx.Render(mCubes[i], gd3dImmediateContext);
+	}
+}

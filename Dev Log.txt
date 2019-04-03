@@ -77,6 +77,11 @@
  layout.
 -Removed unnecessary code from 'Game.cpp'
 
+03/04/2019
+-Rewrote the code inside 'LevelBuilder.cpp'
+-Added new variable in 'mCubes[]' in 'LevelBuilder.cpp'; this will be used
+ to store all the cubes to be rendered for the level.
+
 #TODO#
 -29/03/2019: Add in wall clinging. Try using an If statement that checks
 	     if the Direction variable; if the user is still 'facing' the
