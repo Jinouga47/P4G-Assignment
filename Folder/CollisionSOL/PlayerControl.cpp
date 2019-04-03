@@ -162,7 +162,8 @@ bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vect
 	return false;
 }
 
-void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, Model& rock)
+void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, Model& cube)
+//																								 ^^Pass in the cubes here^^
 {
 	Input(input);
 

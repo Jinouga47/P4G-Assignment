@@ -11,8 +11,8 @@
 class LevelBuilder
 {
 public:
-	float cubeX[10];
-	float cubeY[10];
+	//float cubeX[10];
+	//float cubeY[10];
 	Model mCube;
 	Model mCubes[100];
 	int test[3][2] = { {0,0},{1,0},{2,0} };

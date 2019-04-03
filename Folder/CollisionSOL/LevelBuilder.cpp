@@ -11,7 +11,7 @@ using namespace DirectX::SimpleMath;
 const int MAX_CUBES = 8;
 const float CUBE_SCALE = 0.2f;
 
-float cubeX[10] = { 1,2,3,4,5,6,7,8,9,10 };
+float cubeX[10] = { -2,-1,0,1,2,1,3,4,5,6 };
 float cubeY[10] = { 1,1,1,1,1,1,1,1,1,1 };
 
 
