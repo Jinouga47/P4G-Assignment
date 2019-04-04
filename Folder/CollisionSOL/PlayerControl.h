@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "Input.h"
+#include "LevelBuilder.h"
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
@@ -14,6 +15,8 @@ class PlayerControl
 public:
 	Model mBall;
 	Model mCube;
+	Model mCubes[100];
+	Model cube;
 	DirectX::SimpleMath::Vector3 mVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mDblVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mGrav = DirectX::SimpleMath::Vector3(0, 0, 0);
@@ -34,11 +37,12 @@ public:
 	void Initialise(MeshManager& mgr);
 	void Input(MouseAndKeys&);
 	void Start();
-	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, Model& rock);
+
+	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
 private:
-	std::vector<Model> mCubes;
+	//std::vector<Model> mCubes;
 };
 
 #endif

@@ -81,11 +81,14 @@
 -Rewrote the code inside 'LevelBuilder.cpp'
 -Added new variable in 'mCubes[]' in 'LevelBuilder.cpp'; this will be used
  to store all the cubes to be rendered for the level.
+-Alter 'Update()' in 'PlayerControl.cpp'; the LevelBuilder is now passed
+ through so 'CollisonManager()' can work with the rendered cubes.
+-Altered 'CollisionManager()' in 'PlayerControl.cpp'; it now takes
+ a 'LevelBuilder' object as a parameter.
+-Commented out new code due it slowing the game down and not quite working
 
 #TODO#
--29/03/2019: Add in wall clinging. Try using an If statement that checks
-	     if the Direction variable; if the user is still 'facing' the
-	     cube then slow gravity by half. This may lead to an issue
-	     with dTime so try reseting it to 0 if they're wall clinging.
-
 -30/03/2019: Add in wall jumping
+-03/04/2019: Find a new way to move. Currently the movement is speed is determined
+ by the frame rate which drops significantly when multiple cubes are rendered and
+ the new code for collision is implemented.
