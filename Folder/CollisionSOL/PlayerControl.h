@@ -7,6 +7,7 @@
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
+#include <Keyboard.h>
 
 class PlayerControl
 {
@@ -27,11 +28,12 @@ public:
 	Mode mMode, mLastMode;
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
+	std::unique_ptr<DirectX::Keyboard> m_keyboard;
+	DirectX::Keyboard::KeyboardStateTracker tracker;
 
 	void Initialise(MeshManager& mgr);
 	void Input(MouseAndKeys&);
 	void Start();
-
 	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, Model& rock);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);

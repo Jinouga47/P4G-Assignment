@@ -261,9 +261,17 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 			mCamPos = mDefCamPos;
 			break;
 		}
-	case WM_INPUT:
-			mMKInput.MessageEvent((HRAWINPUT)lParam);
-			break;
+	case WM_ACTIVATEAPP:
+		DirectX::Keyboard::ProcessMessage(msg, wParam, lParam);
+		break;
+
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		DirectX::Keyboard::ProcessMessage(msg, wParam, lParam);
+		break;
+	
 	}
 	//default message handling (resize window, full screen, etc)
 	return DefaultMssgHandler(hwnd, msg, wParam, lParam);

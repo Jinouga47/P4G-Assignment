@@ -31,6 +31,7 @@ void PlayerControl::Initialise(MeshManager& mgr)
 	mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
 
 	Start();
+	m_keyboard = std::make_unique<Keyboard>();
 }
 
 void PlayerControl::Start()
@@ -44,19 +45,21 @@ void PlayerControl::Start()
 }
 
 void PlayerControl::Input(MouseAndKeys& input) {
-	if (input.IsPressed(VK_A)/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
+	auto state = m_keyboard->GetState();
+	tracker.Update(state);
+	if (state.A/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
 	{
 		mBall.GetPosition().x += Left;
 		Direction = -1;
 	}
-	else if (input.IsPressed(VK_D)/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
+	else if (state.D/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
 	{
 		mBall.GetPosition().x += Right;
 		Direction = 1;
 	}
 	else
 		Direction = 0;
-	if (input.IsPressed(VK_W) && !Airborne)
+	if (tracker.pressed.W && !Airborne)
 	{
 		/*if (Cling) {
 			if (Direction = 1)
@@ -75,7 +78,7 @@ void PlayerControl::Input(MouseAndKeys& input) {
 		//lose energy
 		mVel *= mCOR;
 	}
-	if (input.IsPressed(VK_S) && Airborne && SecondJump)
+	else if (tracker.pressed.W && Airborne && SecondJump)
 	{
 		//lose energy
 		mDblVel *= mCOR;
