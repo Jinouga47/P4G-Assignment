@@ -8,6 +8,7 @@
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
+#include "CubeClass.h"
 class LevelBuilder
 {
 public:
@@ -15,9 +16,11 @@ public:
 	//float cubeY[10];
 	Model mCube;
 	Model mCubes[100];
-	int test[3][2] = { {0,0},{1,0},{2,0} };
+	CubeClass cubies;
+	//int test[3][2] = { {0,0},{1,0},{2,0} };
 	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
 	void Initialise(MeshManager& mgr);//, int levelSize);
+	void test(Mesh& mesh);
 	void Render(FX::MyFX& fx);//, int levelSize);
 	Model GetCubes(int i);
 private:
