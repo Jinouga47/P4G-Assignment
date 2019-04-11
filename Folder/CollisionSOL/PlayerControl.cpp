@@ -31,7 +31,7 @@ void PlayerControl::Initialise(MeshManager& mgr)
 	//mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
 
 	Start();
-	m_keyboard = std::make_unique<Keyboard>();
+//	m_keyboard = std::make_unique<Keyboard>();
 }
 
 void PlayerControl::Start()
@@ -44,7 +44,7 @@ void PlayerControl::Start()
 	mCOR = 1;
 }
 
-void PlayerControl::Input(MouseAndKeys& input) {
+void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 	auto state = m_keyboard->GetState();
 	tracker.Update(state);
 	if (state.A/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
@@ -182,10 +182,10 @@ bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vect
 	return false;
 }
 
-void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, LevelBuilder& level)
+void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>& m_keyboard)
 //																								 ^^Pass in the cubes here^^
 {
-	Input(input);
+	Input(m_keyboard);
 
 	if (mVel.y > 4)
 		mVel.y = 4;

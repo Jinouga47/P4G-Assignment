@@ -33,6 +33,7 @@ void Game::Load()
 	pMat->pTextureRV = mFX.mCache.LoadTexture("floor.dds", true, gd3dDevice);
 	pMat->texture = "floor";
 	mLoadData.loadedSoFar++;
+	m_keyboard = std::make_unique<Keyboard>();
 
 	//torch
 	mTorch.Initialise(BuildSphere(mMeshMgr, 16,16));
@@ -56,6 +57,7 @@ void Game::Load()
 	//mBallSim.Initialise(mMeshMgr);
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
+	mEnemy.Initialise(mMeshMgr);
 
 }
 
@@ -147,7 +149,7 @@ void Game::Update(float dTime)
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
-	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mBuilder);
+	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mBuilder, m_keyboard);
 }
 
 

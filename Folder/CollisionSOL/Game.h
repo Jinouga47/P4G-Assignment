@@ -12,7 +12,8 @@
 #include "BallSim.h"
 #include "PlayerControl.h"
 #include "LevelBuilder.h"
-
+#include "Enemy.h"
+#include <Keyboard.h>
 //wrap up comon behaviours, initialisation+shutdown
 class Game
 {
@@ -33,7 +34,8 @@ public:
 	//message handling
 	LRESULT WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	
+	std::unique_ptr<DirectX::Keyboard> m_keyboard;
+
 	//camera
 	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0.5f, -5);
 	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 0.5f, -5);
@@ -76,7 +78,7 @@ private:
 	BallSim mBallSim;
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
-
+	Enemy mEnemy;
 
 	DirectX::SimpleMath::Vector3 CubePos;
 };
