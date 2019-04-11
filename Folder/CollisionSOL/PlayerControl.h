@@ -9,7 +9,7 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include <Keyboard.h>
-
+#include <vector>
 class PlayerControl
 {
 public:
@@ -31,14 +31,15 @@ public:
 	Mode mMode, mLastMode;
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
-	std::unique_ptr<DirectX::Keyboard> m_keyboard;
+//	std::unique_ptr<DirectX::Keyboard> m_keyboard;
 	DirectX::Keyboard::KeyboardStateTracker tracker;
 
+
 	void Initialise(MeshManager& mgr);
-	void Input(MouseAndKeys&);
+	void Input(std::unique_ptr<DirectX::Keyboard>&);
 	void Start();
 
-	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level);
+	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>&);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
 private:

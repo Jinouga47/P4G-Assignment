@@ -1,11 +1,7 @@
-#include "Enemy.h"
-#include "D3D.h"
-#include <string>
 #include <iomanip>
 
-
-
-
+#include "Enemy.h"
+#include "D3D.h"
 
 using namespace std;
 using namespace DirectX;
@@ -26,96 +22,130 @@ void Enemy::Initialise(MeshManager& mgr)
 	mat.flags &= ~MaterialExt::TFlags::CCW_WINDING;
 	mBall.SetOverrideMat(&mat);
 	//mLastMode = mMode = Mode::WAITING;
-	//p = mgr.GetMesh("cube");
-	//assert(p);
-	//mCube.Initialise(*p);
+	p = mgr.GetMesh("cube");
+	assert(p);
+	mCube.Initialise(*p);
 
 	//mCubes.insert(mCubes.begin(), MAX_CUBES, mCube);
 
 	Start();
+
 }
 
 void Enemy::Start()
 {
-	mBall.GetPosition() = Vector3(0, 0.1f, 0);
-	mVel = Vector3(0, 1, 0) * 4;
+	mBall.GetPosition() = Vector3(0.1f, 0.1f, 0);
+	mVel = Vector3(0, 1, 0) * -4;
 	mDblVel = Vector3(0, 1, 0) * 4;
 	mGrav = Vector3(0, -9.81f, 0);// *0.5f;
 	mAccel = Vector3(0, 0, 0);
 	mCOR = 1;
 }
 
-void Enemy::Input(MouseAndKeys& input) {
-	if (input.IsPressed(VK_A))// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
-		mBall.GetPosition().x += Left;
-	else if (input.IsPressed(VK_D))// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
-		mBall.GetPosition().x += Right;
-	if (input.IsPressed(VK_W) && !Airborne)// && !Held)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_UP))
-	{
-		//bounce up
-		mVel.y *= -1;
-		//lose energy
-		mVel *= mCOR;
-		Airborne = true;
-		SecondJump = true;
-	}
-	if (input.IsPressed(VK_S) && Airborne && SecondJump)// && !Held)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_UP))
-	{
-		//lose energy
-		mDblVel *= mCOR;
-		Airborne = true;
-		SecondJump = false;
-		//Reset the initial velocity
-		mVel = Vector3(0, 1, 0) * 4;
-	}
+void Enemy::Input() {
+
+	//if (state.A/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_LEFT))
+	//{
+	//	mBall.GetPosition().x += Left;
+	//	Direction = -1;
+	//}
+	//else if (state.D/* && mVel.x == 0*/)// || mGamepad.IsPressed(0, XINPUT_GAMEPAD_DPAD_RIGHT))
+	//{
+	//	mBall.GetPosition().x += Right;
+	//	Direction = 1;
+	//}
+	//else
+	//	Direction = 0;
+	//if (tracker.pressed.W && !Airborne)
+	//{
+	//	/*if (Cling) {
+	//	if (Direction = 1)
+	//	mVel.x = -1;
+	//	else if (Direction = -1)
+	//	mVel.x = 1;
+	//	Airborne = false;
+	//	SecondJump = false;
+	//	}
+	//	else {*/
+	//	Airborne = true;
+	//	SecondJump = true;
+	//	//}
+	//	//bounce up
+	//	mVel.y *= -1;
+	//	//lose energy
+	//	mVel *= mCOR;
+	//}
+	//else if (tracker.pressed.W && Airborne && SecondJump)
+	//{
+	//	//lose energy
+	//	mDblVel *= mCOR;
+	//	Airborne = true;
+	//	SecondJump = false;
+	//	//Reset the initial velocity
+	//	mVel = Vector3(0, 1, 0) * 4;
+	//}
 }
 
-//bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& vel, Vector3& pos, float COR, float dTime)
-//{
-//	Vector3 cn;
-//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
-//	{
-//		//cube collision
-//		if (SphereToAABBox(box, sphere, cn))
-//		{
-//			//we're inside, but are we already trying to escape?
-//			//if we are not trying to escape then reflect our velocity and move away
-//			Vector3 d(vel);
-//			d.Normalize();
-//			float escaping = cn.Dot(d);
-//			if (escaping < 0)
-//			{
-//				//not an escape angle so reflect
-//				vel = Vector3::Reflect(vel, cn);
-//				vel *= COR;
-//				pos = sphere.Center;
-//				pos += vel * dTime;
-//			}
-//			return true;
-//		}
-//	}
-//	return false;
-//}
-
-void Enemy::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, Model& rock)
+bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& pos, int dir, Model& cube, bool& cling, bool& airborne)
 {
-	Input(input);
+	Vector3 cn;
+	Vector3 A, B, C, D;
+	for (int i(0); i < 100; i++) {
+		A = Vector3(cube.GetPosition().x - 0.3, cube.GetPosition().y + 0.3, 1); //Top Left
+		B = Vector3(cube.GetPosition().x - 0.3, cube.GetPosition().y - 0.3, 1); //Bottom Left
+		C = Vector3(cube.GetPosition().x + 0.3, cube.GetPosition().y - 0.3, 1); //Bottom Right
+		D = Vector3(cube.GetPosition().x + 0.3, cube.GetPosition().y + 0.3, 1); //Top Right
+
+
+																				//A = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Left
+																				//B = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Left
+																				//C = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Right
+																				//D = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Right
+
+
+		if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+		{
+			//cube collision
+			if (SphereToAABBox(box, sphere, cn))
+			{
+				if ((pos.x <= A.x) && (pos.x <= B.x) && (pos.y + 0.1 <= A.y) && (pos.y - 0.1 >= B.y) && dir == 1) {
+					pos.x -= 0.002f;
+					/*if (airborne) {
+					cling = true;
+					airborne = false;
+					}*/
+				}
+				else if ((pos.x >= D.x) && (pos.x >= C.x) && (pos.y + 0.1 <= D.y) && (pos.y - 0.1 >= C.y) && dir == -1)
+					pos.x += 0.002f;
+				else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x))
+					pos.y -= 0.004f;
+				else if ((pos.y >= A.y) && (pos.y >= D.y) && (pos.x + 0.1 >= A.x) && (pos.y - 0.1 <= D.x)) {
+					pos.y = cube.GetPosition().x + cube.GetScale().x + 0.1;
+					return true;
+				}
+				//else
+				//cling = false;
+			}
+		}
+		//cling = false;
+	}
+	return false;
+}
+
+void Enemy::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input)
+//																								 ^^Pass in the cubes here^^
+{
+	Input();
 
 	if (mVel.y > 4)
 		mVel.y = 4;
 
-	////Used to determine whether the button is still being pressed. This stops the If statements in Input
-	////constantly being called, which messes with the velocity of the jumps.
-	//if ((!Held && input.IsPressed(VK_W)) || (!Held && input.IsPressed(VK_S)))
-	////if ((!Held && input.IsPressed(VK_S)) || (Held && input.IsPressed(VK_W)))//Test ver.
-	//	Held = true;
-	//else if ((Held && !input.IsPressed(VK_W)) || (Held && !input.IsPressed(VK_S)))
-	////else if((Held && input.IsPressed(VK_W)) || (Held && !input.IsPressed(VK_S)))//Test ver.
-	//	Held = false;
+	Vector3 pos = mBall.GetPosition();
 
 	//If the Player is not Airborne (meaning they're on the ground), dTime won't change. This stops
 	//the player object from jumping as dTime is used for that.
-	if (!Airborne) {
+	//if (!Airborne) {
+	if (CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), pos, Direction, mCube, Cling, Airborne)) {
 		dTime = 0;
 		dTime2 = 0;
 	}
@@ -123,9 +153,6 @@ void Enemy::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKey
 	//still able to jump a second time.
 	else if (Airborne && SecondJump)
 		dTime2 = 0;
-
-	Vector3 pos = mBall.GetPosition();
-
 
 	//If the Player is airborne and uses their second jump, their position is determined using dTime2 and mDblVel
 	//instead of dTime and mVel. mDblVel and dTime2 are basically what mVel and dTime would be if the player was
@@ -137,14 +164,25 @@ void Enemy::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKey
 
 	//Checks to see if the Player is beneath the floor. If they are their position is set so they are place
 	//'on top' of it and the boolean states are set so the Player is treated as though they're on the ground.
-	//#THIS WILL BE ALTERED WHEN COLLISION IS ADDED#
 	if (pos.y < mRadius)
 	{
 		pos.y = mRadius;
 		Airborne = false;
 		SecondJump = false;
+		//Cling = false;
 		mDblVel = Vector3(0, 1, 0) * 4;
+		mVel = Vector3(0, 1, 0) * -4;
 	}
+	else if (CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), pos, Direction, mCube, Cling, Airborne))
+	{
+		Airborne = false;
+		SecondJump = false;
+		//Cling = false;
+		mDblVel = Vector3(0, 1, 0) * 4;
+		mVel = Vector3(0, 1, 0) * -4;
+	}
+
+	CollisionManager(BoundingBox(mCube.GetPosition(), Vector3(0.25f, 0.25f, 0.25f)), BoundingSphere(mBall.GetPosition(), mRadius), pos, Direction, mCube, Cling, Airborne);
 	mBall.GetPosition() = pos;
 
 	//apply accelerations unless we've come to a halt
@@ -174,6 +212,9 @@ void Enemy::Render(FX::MyFX& fx, float dTime)
 {
 	fx.Render(mBall, gd3dImmediateContext);
 	FX::SetupPointLight(1, true, mBall.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
+	mCube.GetPosition() = Vector3(1, 1, 0);
+	mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
+	fx.Render(mCube, gd3dImmediateContext);
 
 	/*switch (mMode)
 	{
@@ -186,57 +227,4 @@ void Enemy::Render(FX::MyFX& fx, float dTime)
 	for (auto& c : mCubes)
 	fx.Render(c, gd3dImmediateContext);
 	}*/
-}
-
-void Enemy::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
-{
-	wstring mssg;
-	/*switch (mMode)
-	{
-	case Mode::WAITING:
-	mssg = L"mode = Mode::WAITING";
-	break;
-	case Mode::LINEAR:
-	mssg = L"mode = Mode::LINEAR, no gravity";
-	break;
-	case Mode::LINEAR_ACCEL:
-	mssg = L"mode = Mode::LINEAR accel, no gravity";
-	break;
-	case Mode::BOUNCE_INF:
-	mssg = L"mode = Bounce infinite";
-	break;
-	case Mode::BOUNCE:
-	mssg = L"mode = Bounce";
-	break;
-	case Mode::CUBE:
-	mssg = L"mode = Cube";
-	break;
-	case Mode::CUBE_MOUSE:
-	mssg = L"mode = Cube - mouse control";
-	break;
-	case Mode::MULTI:
-	mssg = L"mode = Cube - multi";
-	break;
-	}*/
-	//pF->DrawString(pBatch, mssg.c_str(), Vector2(10, 10), Colours::White, 0, Vector2(0, 0));
-
-	//wstringstream ss;
-	//ss << std::setprecision(3);
-	//ss << L"Position=" << mBall.GetPosition().y;
-	//pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	//wstringstream sq;
-	//sq << std::setprecision(3);
-	//sq << L"Velocity=" << mVel.y;
-	//pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 30), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	//wstringstream sw;
-	//sw << std::setprecision(3);
-	//sw << L"Double Velocity=" << mDblVel.y;
-	//pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 45), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	//wstringstream se;
-	//se << std::setprecision(3);
-	//se << L"Held State=" << Held;
-	//pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 60), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 }
