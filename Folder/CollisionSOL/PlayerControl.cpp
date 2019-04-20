@@ -191,6 +191,9 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 		mVel.y = 4;
 
 	Vector3 pos = mBall.GetPosition();
+	//camPos.x = mBall.GetPosition().x;
+	//camPos.y = mBall.GetPosition().y;
+
 
 	//If the Player is not Airborne (meaning they're on the ground), dTime won't change. This stops
 	//the player object from jumping as dTime is used for that.
