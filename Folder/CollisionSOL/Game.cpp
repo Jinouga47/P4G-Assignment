@@ -146,6 +146,8 @@ void Game::Update(float dTime)
 	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
 	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
 
+	
+
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
