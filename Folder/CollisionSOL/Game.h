@@ -78,7 +78,10 @@ private:
 	BallSim mBallSim;
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
-	Enemy mEnemy;
+	Enemy mEnemy, mEnemy2, mEnemy3;
+
+	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
+
 
 	DirectX::SimpleMath::Vector3 CubePos;
 };

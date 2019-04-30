@@ -7,8 +7,9 @@
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
+#include "PlayerControl.h"
 #include <Keyboard.h>
-
+#include <vector>
 class Enemy
 {
 public:
@@ -21,23 +22,20 @@ public:
 	DirectX::SimpleMath::Vector3 mDblVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mGrav = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mAccel = DirectX::SimpleMath::Vector3(0, 0, 0);
-	float mCOR = 1;
-	float mRadius = 0.1f;
-	float Left = -0.002f;
-	float Right = 0.002f;
-	int Direction = 0;
-	bool Airborne = false, SecondJump = false, Cling = false;
+
 	enum class Mode { WAITING, LINEAR, LINEAR_ACCEL, BOUNCE_INF, BOUNCE, CUBE, CUBE_MOUSE, MULTI };
 	Mode mMode, mLastMode;
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
+	PlayerControl Player;
+	int delayCounter = 0;
+	int delay;
+	std::vector<DirectX::SimpleMath::Vector3> posList;
+	void Initialise(MeshManager& mgr, int delay);
 
-
-	void Initialise(MeshManager& mgr);
-	void Input();
 	void Start();
 
-	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input);
+	void Update(float dTime, const std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
 	void Render(FX::MyFX& fx, float dTime);
 
 private:
