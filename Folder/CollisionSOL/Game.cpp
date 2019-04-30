@@ -181,7 +181,7 @@ void Game::Render(float dTime)
 
 	//mBallSim.Render(mFX, dTime);
 	mPlayer.Render(mFX, dTime);
-	mBuilder.Render(mFX);
+	//mBuilder.Render(mFX);
 
 	//floor
 	mQuad.GetPosition() = Vector3(0, 0, 0);
