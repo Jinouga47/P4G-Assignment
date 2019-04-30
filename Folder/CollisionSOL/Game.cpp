@@ -57,7 +57,9 @@ void Game::Load()
 	//mBallSim.Initialise(mMeshMgr);
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
-	mEnemy.Initialise(mMeshMgr);
+	mEnemy.Initialise(mMeshMgr, 200);
+	mEnemy2.Initialise(mMeshMgr, 400);
+	mEnemy3.Initialise(mMeshMgr, 600);
 
 }
 
@@ -152,6 +154,10 @@ void Game::Update(float dTime)
 	if (mLoadData.running)
 		return;
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mBuilder, m_keyboard);
+	playerPosList.push_back(mPlayer.mBall.GetPosition());
+	mEnemy.Update(dTime, &playerPosList);
+	mEnemy2.Update(dTime, &playerPosList);
+	mEnemy3.Update(dTime, &playerPosList);
 }
 
 
@@ -183,6 +189,10 @@ void Game::Render(float dTime)
 	mPlayer.Render(mFX, dTime);
 	//mBuilder.Render(mFX);
 
+	mBuilder.Render(mFX);
+	mEnemy.Render(mFX, dTime);
+	mEnemy2.Render(mFX, dTime);
+	mEnemy3.Render(mFX, dTime);
 	//floor
 	mQuad.GetPosition() = Vector3(0, 0, 0);
 	mQuad.GetRotation() = Vector3(0, 0, 0);
