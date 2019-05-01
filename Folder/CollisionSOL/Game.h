@@ -37,8 +37,8 @@ public:
 	std::unique_ptr<DirectX::Keyboard> m_keyboard;
 
 	//camera
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 9.5f, -25);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 9.5f, -25);
+	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0, -25);
+	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 0, -25);
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 	//game models that reference meshes
@@ -78,7 +78,10 @@ private:
 	BallSim mBallSim;
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
-	Enemy mEnemy;
+	Enemy mEnemy, mEnemy2, mEnemy3;
+
+	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
+
 
 	DirectX::SimpleMath::Vector3 CubePos;
 };
