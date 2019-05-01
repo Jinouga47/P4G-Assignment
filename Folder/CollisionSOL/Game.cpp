@@ -271,6 +271,9 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 		case 'Q':
 			PostQuitMessage(0);
 			return 0;
+		case 'x':
+			mCamPos = Vector3(0, 0, -5);
+			break;
 		case ' ':
 			mCamPos = mDefCamPos;
 			break;

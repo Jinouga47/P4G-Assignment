@@ -97,7 +97,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 	}
 }
 
-bool Collision2_0(Model& player, LevelBuilder& level, Model& cube)
+bool CollisionCheck(Model& player, LevelBuilder& level, Model& cube)
 {
 	float player_Xmin = player.GetPosition().x - player.GetScale().x;
 	float player_Xmax = player.GetPosition().x + player.GetScale().x;
@@ -153,67 +153,95 @@ bool Collision2_0(Model& player, LevelBuilder& level, Model& cube)
 //	return false;
 //}
 
-bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& pos, Vector3& Vel, Vector3& DblVel, int dir, Model& cube, LevelBuilder& level)
-{
-	//Vector3 cn;
-	//Vector3 A, B, C, D;
-	//for (int i(0); i < level.Size(); i++) {
-	//	A = Vector3(cube.GetPosition().x - 0.29f, cube.GetPosition().y + 0.31f, 1); //Top Left
-	//	B = Vector3(cube.GetPosition().x - 0.29f, cube.GetPosition().y - 0.29f, 1); //Bottom Left
-	//	C = Vector3(cube.GetPosition().x + 0.31f, cube.GetPosition().y - 0.29f, 1); //Bottom Right
-	//	D = Vector3(cube.GetPosition().x + 0.31f, cube.GetPosition().y + 0.31f, 1); //Top Right
-
-	//	//Full level
-	//	//A = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Left
-	//	//B = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Left
-	//	//C = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Right
-	//	//D = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Right
-
-
-	//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
-	//	//if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
-	//	{
-	//		//cube collision
-	//		if (SphereToAABBox(box, sphere, cn))
-	//		{
-	//			if ((pos.x <= A.x) && (pos.x <= B.x) && (pos.y + 0.1 <= A.y) && (pos.y - 0.1 >= B.y) && dir == 1)
-	//				Vel.x = 0;
-	//			else if ((pos.x >= D.x) && (pos.x >= C.x) && (pos.y + 0.1 <= D.y) && (pos.y - 0.1 >= C.y) && dir == -1)
-	//				Vel.x = 0;
-	//			else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x)) {
-	//				Vel.y = -2;
-	//				DblVel.y = -2;
-	//			}
-	//			//TODO: Edit this to stop double jump cancel glitch
-
-
-	//			else if ((pos.y >= A.y) && (pos.y >= D.y) && (pos.x + 0.1 >= A.x) && (pos.y - 0.1 <= D.x)) {
-	//				pos.y = cube.GetPosition().x + cube.GetScale().x + 0.1;
-	//				return true;
-	//			}
-	//		}
-	//	}
-	//}
-
-	return false;
-}
+//bool CollisionManager(const BoundingBox& box, const BoundingSphere& sphere, Vector3& pos, Vector3& Vel, Vector3& DblVel, int dir, Model& cube, LevelBuilder& level)
+//{
+//	//Vector3 cn;
+//	//Vector3 A, B, C, D;
+//	//for (int i(0); i < level.Size(); i++) {
+//	//	A = Vector3(cube.GetPosition().x - 0.29f, cube.GetPosition().y + 0.31f, 1); //Top Left
+//	//	B = Vector3(cube.GetPosition().x - 0.29f, cube.GetPosition().y - 0.29f, 1); //Bottom Left
+//	//	C = Vector3(cube.GetPosition().x + 0.31f, cube.GetPosition().y - 0.29f, 1); //Bottom Right
+//	//	D = Vector3(cube.GetPosition().x + 0.31f, cube.GetPosition().y + 0.31f, 1); //Top Right
+//
+//	//	//Full level
+//	//	//A = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Left
+//	//	//B = Vector3(level.GetCubes(i).GetPosition().x - 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Left
+//	//	//C = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y - 0.3, 1); //Bottom Right
+//	//	//D = Vector3(level.GetCubes(i).GetPosition().x + 0.3, level.GetCubes(i).GetPosition().y + 0.3, 1); //Top Right
+//
+//
+//	//	if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+//	//	//if (SphereToSphere(sphere, BoundingSphere(box.Center, box.Extents.x*1.5f), cn))
+//	//	{
+//	//		//cube collision
+//	//		if (SphereToAABBox(box, sphere, cn))
+//	//		{
+//	//			if ((pos.x <= A.x) && (pos.x <= B.x) && (pos.y + 0.1 <= A.y) && (pos.y - 0.1 >= B.y) && dir == 1)
+//	//				Vel.x = 0;
+//	//			else if ((pos.x >= D.x) && (pos.x >= C.x) && (pos.y + 0.1 <= D.y) && (pos.y - 0.1 >= C.y) && dir == -1)
+//	//				Vel.x = 0;
+//	//			else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x)) {
+//	//				Vel.y = -2;
+//	//				DblVel.y = -2;
+//	//			}
+//	//			//TODO: Edit this to stop double jump cancel glitch
+//
+//
+//	//			else if ((pos.y >= A.y) && (pos.y >= D.y) && (pos.x + 0.1 >= A.x) && (pos.y - 0.1 <= D.x)) {
+//	//				pos.y = cube.GetPosition().x + cube.GetScale().x + 0.1;
+//	//				return true;
+//	//			}
+//	//		}
+//	//	}
+//	//}
+//
+//	return false;
+//}
 
 bool CollisionManager(Vector3& Vel, Vector3& DblVel, Vector3& pos, int dir, Model& player, Model& cube, LevelBuilder& level)
 {
-	if (Collision2_0(player, level, cube)) {
+	if (CollisionCheck(player, level, cube)) {
 		Vector3 A, B, C, D, Ap, Bp, Cp, Dp;
-		A = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().x + cube.GetScale().y, 1); //Top Left
-		B = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().x - cube.GetScale().y, 1); //Bottom Left
-		C = Vector3(cube.GetPosition().y - cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Right
-		D = Vector3(cube.GetPosition().y - cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Right
+		A = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Left
+		B = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Left
+		C = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Right
+		D = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Right
 
-		Ap = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().x + player.GetScale().y, 1); //Top Left
-		Bp = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().x - player.GetScale().y, 1); //Bottom Left
-		Cp = Vector3(player.GetPosition().y - player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Right
-		Dp = Vector3(player.GetPosition().y - player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Right
+		Ap = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Left
+		Bp = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Left
+		Cp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Right
+		Dp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Right
 
-		if ((pos.x <= A.x) && (pos.x <= B.x) && (pos.y + 0.1 <= A.y) && (pos.y - 0.1 >= B.y) && dir == 1)
+		/*if ((Cp.x >= A.x) && (Dp.x >= B.x) && (Cp.y <= A.y) && (Dp.y >= B.y) && dir == 1) {
 			Vel.x = 0;
+			player.GetPosition().x = (player.GetScale().x/2) - A.x;
+		}*/
+
+
+
+
+		float player_Xmin = player.GetPosition().x - player.GetScale().x;
+		float player_Xmax = player.GetPosition().x + player.GetScale().x;
+		float player_Ymin = player.GetPosition().y - player.GetScale().y;
+		float player_Ymax = player.GetPosition().y + player.GetScale().y;
+
+		float cube_Xmin = cube.GetPosition().x - cube.GetScale().x;
+		float cube_Xmax = cube.GetPosition().x + cube.GetScale().x;
+		float cube_Ymin = cube.GetPosition().y - cube.GetScale().y;
+		float cube_Ymax = cube.GetPosition().y + cube.GetScale().y;
+
+
+
+		//if (Dp.x >= A.x && Dp.x >= B.x && ((Dp.y <= A.y && Dp.y >= B.y) || (Dp.y >= A.y && Cp.y >= B.y && Cp.y < A.y)) && dir == 1){//Wall collision but can slide in from below
+		//if (Dp.x >= A.x && Dp.x >= B.x && ((Dp.y >= A.y && Cp.y >= B.y && Cp.y < A.y)) && dir == 1) {//No wall collision but can't slide in from below
+		//if (pos.x >= A.x && pos.x >= B.x && ((pos.y >= A.y && pos.y >= B.y && pos.y < A.y)) && dir == 1) {
+		if (player_Xmax >= cube_Xmin && pos.y < cube.GetPosition().y && dir == 1) {
+			if (player_Ymax >= cube_Ymin)
+				Vel.y = -2;
+			Vel.x = 0;
+			//player.GetPosition().x = A.x - (player.GetScale().x * 2);
+		}
+
 		else if ((pos.x >= D.x) && (pos.x >= C.x) && (pos.y + 0.1 <= D.y) && (pos.y - 0.1 >= C.y) && dir == -1)
 			Vel.x = 0;
 		else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x)) {
@@ -335,8 +363,8 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstringstream ss;
 	ss << std::setprecision(3);
 	LevelBuilder level;
-	ss << L"Velocity 'x'=" << Collision2_0(mBall, level, mCube);
-	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	ss << L"Velocity 'x'=" << CollisionCheck(mBall, level, mCube);
+	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::Blue, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;
 	sq << std::setprecision(3);
