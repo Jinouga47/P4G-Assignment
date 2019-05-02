@@ -15,7 +15,7 @@ class PlayerControl
 public:
 	Model mBall;
 	Model mCube;
-	Model mCubes[100];
+	//Model mCubes[100];
 	Model cube;
 	DirectX::SimpleMath::Vector3 mVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mDblVel = DirectX::SimpleMath::Vector3(0, 0, 0);
@@ -42,6 +42,7 @@ public:
 	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>&);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
+	void SetCube(Model&);
 private:
 	//std::vector<Model> mCubes;
 };
