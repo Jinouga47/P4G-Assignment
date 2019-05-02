@@ -46,15 +46,6 @@ void Game::Load()
 	mCube.Initialise(BuildCube(mMeshMgr));
 	mLoadData.loadedSoFar++;
 
-	/*Mesh& ms = mMeshMgr.CreateMesh("rock");
-	ms.CreateFrom("../bin/data/the_rock/TheRock2.obj", gd3dDevice, mFX.mCache);
-	mRock.Initialise(ms);
-	mRock.GetScale() = Vector3(0.005f, 0.005f, 0.005f);
-	mRock.GetPosition() = Vector3(1.5f, 0, 0);
-	mRock.GetRotation() = Vector3(0, 0, 0);
-	mLoadData.loadedSoFar++;*/
-
-	//mBallSim.Initialise(mMeshMgr);
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
 	mEnemy.Initialise(mMeshMgr, 200);
@@ -156,7 +147,6 @@ void Game::Update(float dTime)
 	mPlayer.Input(m_keyboard);
 	mBuilder.Collision(mPlayer);
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
-	//mBuilder.Collision(mPlayer);
 	playerPosList.push_back(mPlayer.mBall.GetPosition());
 	mEnemy.Update(dTime, &playerPosList);
 	mEnemy2.Update(dTime, &playerPosList);
@@ -188,19 +178,12 @@ void Game::Render(float dTime)
 
 	MaterialExt mat = MaterialExt::default;
 
-	//mBallSim.Render(mFX, dTime);
 	mPlayer.Render(mFX, dTime);
-	//mBuilder.Render(mFX);
 
 	mBuilder.Render(mFX);
 	mEnemy.Render(mFX, dTime);
 	mEnemy2.Render(mFX, dTime);
 	mEnemy3.Render(mFX, dTime);
-	//floor
-	mQuad.GetPosition() = Vector3(0, 0, 0);
-	mQuad.GetRotation() = Vector3(0, 0, 0);
-	mQuad.GetScale() = Vector3(3, 1, 3);
-	mFX.Render(mQuad, gd3dImmediateContext);
 
 	mCube.GetPosition() = CubePos;
 	//mFX.Render(mCube, gd3dImmediateContext);
@@ -265,8 +248,6 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 	{
 		// Respond to a keyboard event.
 	case WM_CHAR:
-		//mBallSim.Input(wParam);
-		//mPlayer.Input(wParam);
 		switch (wParam)
 		{
 		case 27:

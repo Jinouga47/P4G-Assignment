@@ -8,10 +8,6 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-const int MAX_CUBES = 8;
-const float CUBE_SCALE = 0.2f;
-
-
 void PlayerControl::Initialise(MeshManager& mgr)
 {
 	Mesh *p = mgr.GetMesh("cube");
@@ -79,7 +75,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 	}
 }
 
-bool CollisionCheck(Model& player, /*LevelBuilder& level,*/ Model& cube)
+bool CollisionCheck(Model& player, Model& cube)
 {
 	float player_Xmin = player.GetPosition().x - player.GetScale().x;
 	float player_Xmax = player.GetPosition().x + player.GetScale().x;
@@ -90,11 +86,6 @@ bool CollisionCheck(Model& player, /*LevelBuilder& level,*/ Model& cube)
 	float cube_Xmax = cube.GetPosition().x + cube.GetScale().x;
 	float cube_Ymin = cube.GetPosition().y - cube.GetScale().y;
 	float cube_Ymax = cube.GetPosition().y + cube.GetScale().y;
-
-	/*float cube_Xmin = level.GetCubes(i).GetPosition().x - level.GetCubes(i).GetScale().x;
-	float cube_Xmax = level.GetCubes(i).GetPosition().x + level.GetCubes(i).GetScale().x;
-	float cube_Ymin = level.GetCubes(i).GetPosition().y - level.GetCubes(i).GetScale().y;
-	float cube_Ymax = level.GetCubes(i).GetPosition().y + level.GetCubes(i).GetScale().y;*/
 
 	return (player_Xmin <= cube_Xmax && player_Xmax >= cube_Xmin) &&
 		(player_Ymin <= cube_Ymax && player_Ymax >= cube_Ymin);
@@ -162,10 +153,8 @@ bool CollisionManager(Vector3& Vel, Vector3& DblVel, Vector3& pos, int dir, Mode
 	
 }
 
-void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, /*LevelBuilder& level,*/ std::unique_ptr<DirectX::Keyboard>& m_keyboard)
-//																								 ^^Pass in the cubes here^^
+void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>& m_keyboard)
 {
-	//Input(m_keyboard);
 
 	if (mVel.y > 4)
 		mVel.y = 4;
@@ -184,25 +173,6 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 		pos += mDblVel * dTime2;
 	else
 		pos += mVel * dTime;
-
-	//Checks to see if the Player is beneath the floor. If they are their position is set so they are place
-	//'on top' of it and the boolean states are set so the Player is treated as though they're on the ground.
-	//if (pos.y < mBall.GetScale().y)
-	//{
-	//	pos.y = mBall.GetScale().y;
-	//	Airborne = false;
-	//	SecondJump = false;
-	//	mDblVel = Vector3(0, 1, 0) * 4;
-	//	mVel = Vector3(0, 1, 0) * -4;
-	//}
-	//else if (CollisionManager(mVel, mDblVel, pos, Direction, mBall, mCube, /*level,*/ Airborne)) {
-	//	pos.y = mCube.GetScale().y + mCube.GetPosition().y + mBall.GetScale().y;
-	//	Airborne = false;
-	//	SecondJump = false;
-	//	mDblVel = Vector3(0, 1, 0) * 4;
-	//	mVel = Vector3(0, 1, 0) * -4;
-	//}
-
 	mBall.GetPosition() = pos;
 
 	//Apply gravity
@@ -240,7 +210,6 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 {
 	wstringstream ss;
 	ss << std::setprecision(3);
-	//LevelBuilder level;
 	ss << L"Position 'x'= " << mBall.GetPosition().x;
 	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
@@ -248,11 +217,6 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	sq << std::setprecision(3);
 	sq << L"Position 'y'= " << mBall.GetPosition().y;
 	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	/*wstringstream sw;
-	sw << std::setprecision(3);
-	sw << L"Double Velocity=" << mDblVel.y;
-	pF->DrawString(pBatch, sw.str().c_str(), Vector2(10, 65), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));*/
 
 	wstringstream sw;
 	sw << std::setprecision(3);
