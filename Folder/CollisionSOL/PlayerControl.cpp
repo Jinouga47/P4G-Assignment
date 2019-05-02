@@ -31,7 +31,7 @@ void PlayerControl::Initialise(MeshManager& mgr)
 
 void PlayerControl::Start()
 {
-	mBall.GetPosition() = Vector3(0, 0.1f, 0);
+	mBall.GetPosition() = Vector3(0, 4, 0);
 	mVel = Vector3(0, 1, 0) * -4;
 	mDblVel = Vector3(0, 1, 0) * 4;
 	mGrav = Vector3(0, -9.81f, 0);
@@ -79,7 +79,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 	}
 }
 
-bool CollisionCheck(Model& player, LevelBuilder& level, Model& cube)
+bool CollisionCheck(Model& player, /*LevelBuilder& level,*/ Model& cube)
 {
 	float player_Xmin = player.GetPosition().x - player.GetScale().x;
 	float player_Xmax = player.GetPosition().x + player.GetScale().x;
@@ -100,83 +100,78 @@ bool CollisionCheck(Model& player, LevelBuilder& level, Model& cube)
 		(player_Ymin <= cube_Ymax && player_Ymax >= cube_Ymin);
 }
 
-
-bool CollisionManager(Vector3& Vel, Vector3& DblVel, Vector3& pos, int dir, Model& player, Model& cube, LevelBuilder& level, bool airborne)
+bool CollisionManager(Vector3& Vel, Vector3& DblVel, Vector3& pos, int dir, Model& player, Model& cube/*, LevelBuilder& level*/, bool airborne)
 {
-	int counter = 0;
-	bool collide = false;
-	while (!collide && level.Size() >= counter) {
-		if (CollisionCheck(player, level, level.GetCubes(counter)))
-			collide = true;
-		else {
-			counter++;
-		}
-	}
-	//for (int i = 0; i < level.Size(); i++) {
-	if (CollisionCheck(player, level, level.GetCubes(counter))) {
-		Vector3 A, B, C, D, Ap, Bp, Cp, Dp;
-		//A = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Left
-		//B = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Left
-		//C = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Right
-		//D = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Right
-
-		A = Vector3(level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y, 1); //Top Left
-		B = Vector3(level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y, 1); //Bottom Left
-		C = Vector3(level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y, 1); //Bottom Right
-		D = Vector3(level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y, 1); //Top Right
-
-		Ap = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Left
-		Bp = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Left
-		Cp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Right
-		Dp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Right
-
-		float player_Xmin = player.GetPosition().x - player.GetScale().x;
-		float player_Xmax = player.GetPosition().x + player.GetScale().x;
-		float player_Ymin = player.GetPosition().y - player.GetScale().y + 0.1f;
-		float player_Ymax = player.GetPosition().y + player.GetScale().y - 0.1f;
-
-		/*float cube_Xmin = cube.GetPosition().x - cube.GetScale().x;
-		float cube_Xmax = cube.GetPosition().x + cube.GetScale().x;
-		float cube_Ymin = cube.GetPosition().y - cube.GetScale().y;
-		float cube_Ymax = cube.GetPosition().y + cube.GetScale().y;*/
-
-		cube = level.GetCubes(counter);
-
-		float cube_Xmin = level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x;
-		float cube_Xmax = level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x;
-		float cube_Ymin = level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y;
-		float cube_Ymax = level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y;
-
-		if (player_Xmax >= cube_Xmin && player_Ymin < cube_Ymax && player_Ymax > cube_Ymin && dir != 0 && airborne)
-			Vel.x = 0;
-		else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x) && airborne) {
-			Vel.y = -2;
-			DblVel.y = -2;
-		}
-		else if (player_Ymin > cube_Ymax && player_Xmax > cube_Xmin && player_Xmin < cube_Xmax)
-			return true;
-		return false;
-	}
-	else
-		return false;
+	//int counter = 0;
+	//bool collide = false;
+	//while (!collide && level.Size() >= counter) {
+	//	if (CollisionCheck(player, level, level.GetCubes(counter)))
+	//		collide = true;
+	//	else {
+	//		counter++;
+	//	}
 	//}
+	////for (int i = 0; i < level.Size(); i++) {
+	//if (CollisionCheck(player, level, level.GetCubes(counter))) {
+	//	Vector3 A, B, C, D, Ap, Bp, Cp, Dp;
+	//	//A = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Left
+	//	//B = Vector3(cube.GetPosition().x - cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Left
+	//	//C = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y - cube.GetScale().y, 1); //Bottom Right
+	//	//D = Vector3(cube.GetPosition().x + cube.GetScale().x, cube.GetPosition().y + cube.GetScale().y, 1); //Top Right
+
+	//	A = Vector3(level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y, 1); //Top Left
+	//	B = Vector3(level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y, 1); //Bottom Left
+	//	C = Vector3(level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y, 1); //Bottom Right
+	//	D = Vector3(level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x, level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y, 1); //Top Right
+
+	//	Ap = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Left
+	//	Bp = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Left
+	//	Cp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Right
+	//	Dp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Right
+
+	//	float player_Xmin = player.GetPosition().x - player.GetScale().x;
+	//	float player_Xmax = player.GetPosition().x + player.GetScale().x;
+	//	float player_Ymin = player.GetPosition().y - player.GetScale().y + 0.1f;
+	//	float player_Ymax = player.GetPosition().y + player.GetScale().y - 0.1f;
+
+	//	/*float cube_Xmin = cube.GetPosition().x - cube.GetScale().x;
+	//	float cube_Xmax = cube.GetPosition().x + cube.GetScale().x;
+	//	float cube_Ymin = cube.GetPosition().y - cube.GetScale().y;
+	//	float cube_Ymax = cube.GetPosition().y + cube.GetScale().y;*/
+
+	//	cube = level.GetCubes(counter);
+
+	//	float cube_Xmin = level.GetCubes(counter).GetPosition().x - level.GetCubes(counter).GetScale().x;
+	//	float cube_Xmax = level.GetCubes(counter).GetPosition().x + level.GetCubes(counter).GetScale().x;
+	//	float cube_Ymin = level.GetCubes(counter).GetPosition().y - level.GetCubes(counter).GetScale().y;
+	//	float cube_Ymax = level.GetCubes(counter).GetPosition().y + level.GetCubes(counter).GetScale().y;
+
+	//	if (player_Xmax >= cube_Xmin && player_Ymin < cube_Ymax && player_Ymax > cube_Ymin && dir != 0 && airborne)
+	//		Vel.x = 0;
+	//	else if ((pos.y <= B.y) && (pos.y <= C.y) && (pos.x + 0.1 >= B.x) && (pos.y - 0.1 <= C.x) && airborne) {
+	//		Vel.y = -2;
+	//		DblVel.y = -2;
+	//	}
+	//	else if (player_Ymin > cube_Ymax && player_Xmax > cube_Xmin && player_Xmin < cube_Xmax)
+	//		return true;
+	//	return false;
+	//}
+	//else
+		return false;
+	////}
 	
 }
 
-void PlayerControl::SetCube(Model& cube) {
-	mCube = cube;
-}
-
-void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>& m_keyboard)
+void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, /*LevelBuilder& level,*/ std::unique_ptr<DirectX::Keyboard>& m_keyboard)
 //																								 ^^Pass in the cubes here^^
 {
-	Input(m_keyboard);
+	//Input(m_keyboard);
 
 	if (mVel.y > 4)
 		mVel.y = 4;
 
 	Vector3 pos = mBall.GetPosition();
-	CollisionManager(mVel, mDblVel, pos, Direction, mBall, mCube, level, Airborne);
+	//CollisionManager(mVel, mDblVel, pos, Direction, mBall, mCube, /*level,*/ Airborne);
 	//If the Player is Airborne and they haven't used their double jump, dTime2 is set to 0 so they're
 	//still able to jump a second time.
 	if (Airborne && SecondJump)
@@ -192,21 +187,21 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 
 	//Checks to see if the Player is beneath the floor. If they are their position is set so they are place
 	//'on top' of it and the boolean states are set so the Player is treated as though they're on the ground.
-	if (pos.y < mBall.GetScale().y)
-	{
-		pos.y = mBall.GetScale().y;
-		Airborne = false;
-		SecondJump = false;
-		mDblVel = Vector3(0, 1, 0) * 4;
-		mVel = Vector3(0, 1, 0) * -4;
-	}
-	else if (CollisionManager(mVel, mDblVel, pos, Direction, mBall, mCube, level, Airborne)) {
-		pos.y = mCube.GetScale().y + mCube.GetPosition().y + mBall.GetScale().y;
-		Airborne = false;
-		SecondJump = false;
-		mDblVel = Vector3(0, 1, 0) * 4;
-		mVel = Vector3(0, 1, 0) * -4;
-	}
+	//if (pos.y < mBall.GetScale().y)
+	//{
+	//	pos.y = mBall.GetScale().y;
+	//	Airborne = false;
+	//	SecondJump = false;
+	//	mDblVel = Vector3(0, 1, 0) * 4;
+	//	mVel = Vector3(0, 1, 0) * -4;
+	//}
+	//else if (CollisionManager(mVel, mDblVel, pos, Direction, mBall, mCube, /*level,*/ Airborne)) {
+	//	pos.y = mCube.GetScale().y + mCube.GetPosition().y + mBall.GetScale().y;
+	//	Airborne = false;
+	//	SecondJump = false;
+	//	mDblVel = Vector3(0, 1, 0) * 4;
+	//	mVel = Vector3(0, 1, 0) * -4;
+	//}
 
 	mBall.GetPosition() = pos;
 
@@ -245,8 +240,8 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 {
 	wstringstream ss;
 	ss << std::setprecision(3);
-	LevelBuilder level;
-	ss << L"Velocity 'x'=" << CollisionCheck(mBall, level, mCube);
+	//LevelBuilder level;
+	ss << L"Velocity 'x'=" << CollisionCheck(mBall, /*level,*/ mCube);
 	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::Blue, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;

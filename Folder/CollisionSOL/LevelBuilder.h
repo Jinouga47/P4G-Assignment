@@ -9,6 +9,7 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "CubeClass.h"
+#include "PlayerControl.h"
 class LevelBuilder
 {
 public:
@@ -17,12 +18,14 @@ public:
 	Model mCube;
 	Model mCubes[125];
 	CubeClass cubies;
+	CubeClass cubiesArray[125];
 	//int test[3][2] = { {0,0},{1,0},{2,0} };
 	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
 	void Initialise(MeshManager& mgr);//, int levelSize);
 	int Size();
 	void Render(FX::MyFX& fx);//, int levelSize);
 	Model GetCubes(int i);
+	void Collision(PlayerControl&);
 private:
 	int size_;
 };

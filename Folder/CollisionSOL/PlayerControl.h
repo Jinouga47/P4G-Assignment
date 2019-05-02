@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "Input.h"
-#include "LevelBuilder.h"
+//#include "LevelBuilder.h"
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
@@ -39,7 +39,8 @@ public:
 	void Input(std::unique_ptr<DirectX::Keyboard>&);
 	void Start();
 
-	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>&);
+	//void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, LevelBuilder& level, std::unique_ptr<DirectX::Keyboard>&);
+	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>&);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
 	void SetCube(Model&);

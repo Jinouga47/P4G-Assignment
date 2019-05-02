@@ -2,7 +2,6 @@
 #include <iomanip>
 
 #include "LevelBuilder.h"
-#include "CubeClass.h"
 #include "D3D.h"
 
 using namespace std;
@@ -54,7 +53,12 @@ void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 	//Sets up the array for the cubes that make up the level
 	for (int i = 0; i < 125; i++) {
 		cubies.Initialise(*p, cubeX[i], cubeY[i]);
-		mCubes[i] = cubies.GetCube();
+		/*mCubes[i] = cubies.GetCube();
+		cubiesArray[i] = cubies;*/
+
+		cubiesArray[i] = cubies;
+		mCubes[i] = cubiesArray[i].GetCube();
+
 		size_ = i;
 		//Puts the the cube in the array
 	}
@@ -75,4 +79,21 @@ Model LevelBuilder::GetCubes(int i)
 int LevelBuilder::Size()
 {
 	return size_;
+}
+
+void LevelBuilder::Collision(PlayerControl& player)
+{
+	int counter = 0;
+	bool collide = false;
+	/*while (!collide && size_() >= counter) {
+		if (CollisionCheck(player, level, level.GetCubes(counter)))
+			collide = true;
+		else {
+			counter++;
+		}
+	}*/
+	for (int i = 0; i < size_; i++)
+	{
+		cubiesArray[i].CollisionManager(player);
+	}
 }

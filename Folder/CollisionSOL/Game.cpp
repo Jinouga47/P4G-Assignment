@@ -153,7 +153,10 @@ void Game::Update(float dTime)
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
-	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, mBuilder, m_keyboard);
+	mPlayer.Input(m_keyboard);
+	mBuilder.Collision(mPlayer);
+	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
+	//mBuilder.Collision(mPlayer);
 	playerPosList.push_back(mPlayer.mBall.GetPosition());
 	mEnemy.Update(dTime, &playerPosList);
 	mEnemy2.Update(dTime, &playerPosList);
