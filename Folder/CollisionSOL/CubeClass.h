@@ -18,7 +18,7 @@ public:
 	Model GetCube();
 	
 	bool CollisionCheck(/*Model&*/PlayerControl& player);
-	bool CollisionManager(/*Model&*/PlayerControl& player);
+	void CollisionManager(/*Model&*/PlayerControl& player);
 private:
 	float y, x;
 };

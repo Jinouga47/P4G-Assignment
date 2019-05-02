@@ -32,8 +32,8 @@ void PlayerControl::Initialise(MeshManager& mgr)
 void PlayerControl::Start()
 {
 	mBall.GetPosition() = Vector3(0, 4, 0);
-	mVel = Vector3(0, 1, 0) * -4;
-	mDblVel = Vector3(0, 1, 0) * 4;
+	mVel = Vector3(0, 1, 0) * -5;
+	mDblVel = Vector3(0, 1, 0) * 5;
 	mGrav = Vector3(0, -9.81f, 0);
 	mAccel = Vector3(0, 0, 0);
 	mCOR = 1;
@@ -241,12 +241,12 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstringstream ss;
 	ss << std::setprecision(3);
 	//LevelBuilder level;
-	ss << L"Velocity 'x'=" << CollisionCheck(mBall, /*level,*/ mCube);
-	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::Blue, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	ss << L"Position 'x'= " << mBall.GetPosition().x;
+	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;
 	sq << std::setprecision(3);
-	sq << L"Velocity 'y'=" << mVel.y;
+	sq << L"Position 'y'= " << mBall.GetPosition().y;
 	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	/*wstringstream sw;
