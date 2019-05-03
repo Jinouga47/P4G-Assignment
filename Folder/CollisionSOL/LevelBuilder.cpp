@@ -50,16 +50,15 @@ void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 	assert(p);
 	cubies.Initialise(*p, 1, 1);
 
+	int ii = sizeof(cubeX);
+
 	//Sets up the array for the cubes that make up the level
 	for (int i = 0; i < 125; i++) {
 		cubies.Initialise(*p, cubeX[i], cubeY[i]);
-		/*mCubes[i] = cubies.GetCube();
-		cubiesArray[i] = cubies;*/
 
 		cubiesArray[i] = cubies;
 		mCubes[i] = cubiesArray[i].GetCube();
-
-		size_ = i;
+		size_ = i + 1;
 		//Puts the the cube in the array
 	}
 }
@@ -83,15 +82,6 @@ int LevelBuilder::Size()
 
 void LevelBuilder::Collision(PlayerControl& player)
 {
-	int counter = 0;
-	bool collide = false;
-	/*while (!collide && size_() >= counter) {
-		if (CollisionCheck(player, level, level.GetCubes(counter)))
-			collide = true;
-		else {
-			counter++;
-		}
-	}*/
 	for (int i = 0; i < size_; i++)
 	{
 		cubiesArray[i].CollisionManager(player);

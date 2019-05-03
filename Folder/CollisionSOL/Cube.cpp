@@ -52,10 +52,15 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 		C = Vector3(x + 0.25f, y - 0.25f, 1); //Bottom Right
 		D = Vector3(x + 0.25f, y + 0.25f, 1); //Top Right
 
-		float player_Xmin = player.GetPosition().x - player.GetScale().x;
-		float player_Xmax = player.GetPosition().x + player.GetScale().x;
-		float player_Ymin = player.GetPosition().y - player.GetScale().y + 0.1f;
-		float player_Ymax = player.GetPosition().y + player.GetScale().y - 0.1f;
+		Ap = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Left
+		Bp = Vector3(player.GetPosition().x - player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Left
+		Cp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y - player.GetScale().y, 1); //Bottom Right
+		Dp = Vector3(player.GetPosition().x + player.GetScale().x, player.GetPosition().y + player.GetScale().y, 1); //Top Right
+
+		float player_Xmin = player.GetPosition().x - player.GetScale().x/* + 0.1f*/;
+		float player_Xmax = player.GetPosition().x + player.GetScale().x/* - 0.1f*/;
+		float player_Ymin = player.GetPosition().y - player.GetScale().y + 0.07f;
+		float player_Ymax = player.GetPosition().y + player.GetScale().y - 0.07f;
 
 		float cube_Xmin = x - 0.25f;
 		float cube_Xmax = x + 0.25f;
@@ -65,12 +70,21 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 		if (player_Xmax >= cube_Xmin && player_Ymin < cube_Ymax && player_Ymax > cube_Ymin && player_.Direction == 1) {
 			player_.mVel.x = 0;
 			player.GetPosition().x = mCube.GetPosition().x - mCube.GetScale().x - player.GetScale().x - 0.08f;
+			/*if (player.GetPosition().x < -3.5f)
+				int i = 0;
+				//Corner glitch test breakpoint*/
 		}
 		else if (player_Xmax >= cube_Xmin && player_Ymin < cube_Ymax && player_Ymax > cube_Ymin && player_.Direction == -1) {
 			player_.mVel.x = 0;
 			player.GetPosition().x = mCube.GetScale().x + mCube.GetPosition().x + player.GetScale().x + 0.08f;
 		}
-		else if ((player.GetPosition().y <= B.y) && (player.GetPosition().y <= C.y) && player_.Airborne) {
+		else if ((player.GetPosition().y <= B.y) && (player.GetPosition().y <= C.y) && player_.Airborne) { //Wall fast fall issue on both sides but no corner glitch
+		/*else if ((player_Ymax >= cube_Ymin && player_Xmin < cube_Xmax && player_Xmax > cube_Xmin) && player.GetPosition().y < y && player_.Airborne) { /*Fixes wall faast fall issue
+																																						 for collision on the left of
+																																						 the player but not the right.
+																																						 Also, jumping into corners
+																																						 above the player glitches
+																																						 their posisition.*/
 			player_.mVel.y = -2;
 			player_.mDblVel.y = -2;
 		}

@@ -173,7 +173,7 @@ void Enemy::Render(FX::MyFX& fx, float dTime)
 	FX::SetupPointLight(2, true, mBall.GetPosition(), Vector3(0.7f, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 	mCube.GetPosition() = Vector3(1, 1, 0);
 	mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
-	fx.Render(mCube, gd3dImmediateContext);
+	//fx.Render(mCube, gd3dImmediateContext);
 
 	/*switch (mMode)
 	{
