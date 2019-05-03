@@ -16,9 +16,9 @@ public:
 	//float cubeX[10];
 	//float cubeY[10];
 	Model mCube;
-	Model mCubes[125];
+	Model mCubes[150];
 	CubeClass cubies;
-	CubeClass cubiesArray[125];
+	CubeClass cubiesArray[150];
 	//int test[3][2] = { {0,0},{1,0},{2,0} };
 	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
 	void Initialise(MeshManager& mgr);//, int levelSize);
