@@ -46,7 +46,6 @@ float cubeX[143] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5
 					0, 2, 4, 5, 9.5f,
 					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f};		//Top of level
 
-
 float cubeY[143] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,										//Bottom of level	
 					0.5f, 0.5f,
 					1, 1,
@@ -128,26 +127,31 @@ float cubeY2[83] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 {
-	Mesh *p = mgr.GetMesh("cube");
+	p = mgr.GetMesh("cube");
 	assert(p);
-	//cubies.Initialise(*p, 1, 1);
-
-	int ii = sizeof(cubeX);
-
 	//Sets up the array for the cubes that make up the level
-	for (int i = 0; i < 150; i++) {
-		cubies.Initialise(*p, cubeX[i], cubeY[i]);
+	//for (int i = 0; i < 150; i++) {
+	//	cubies.Initialise(*p, cubeX[i], cubeY[i]);
 
-		cubiesArray[i] = cubies;
-		mCubes[i] = cubiesArray[i].GetCube();
-		size_ = i + 1;
-		//Puts the the cube in the array
-	}
+	//	cubiesArray[i] = cubies;
+
+	//	//List Stuff
+	//	//Level_x.addInFront(cubeX[i]);
+	//	//Level_y.addInFront(cubeY[i]);
+	//	//cubiesArray2.addAtEnd(cubies);
+	//	//mCubes2.addAtEnd(cubies.GetCube());
+	//	//List stuff
+
+	//	//mCubes[i] = cubiesArray[i].GetCube();
+	//	mCubes[i] = cubies.GetCube();
+	//	size_ = i + 1;
+	//	//Puts the the cube in the array
+	//}
 }
 
 void LevelBuilder::Render(FX::MyFX& fx)
 {
-	for (int i = 0; i < 150; i++) {
+	for (int i = 0; i < 83; i++) {
 		fx.Render(mCubes[i], gd3dImmediateContext);
 	}
 }
@@ -155,6 +159,35 @@ void LevelBuilder::Render(FX::MyFX& fx)
 Model LevelBuilder::GetCubes(int i)
 {
 	return mCubes[i];
+}
+
+void LevelBuilder::LevelLoad(PlayerControl& player, int level)
+{
+	switch (level) {
+	case 1:
+		for (int i = 0; i < 143; i++) {
+			cubies.Initialise(*p, cubeX[i], cubeY[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(4, 4, 0));
+		break;
+	case 2:
+		for (int i = 0; i < 83; i++) {
+			cubies.Initialise(*p, cubeX2[i], cubeY2[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(3, 4, 0));
+		break;
+	}
+
 }
 
 int LevelBuilder::Size()

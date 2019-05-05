@@ -22,12 +22,12 @@ void PlayerControl::Initialise(MeshManager& mgr)
 	//assert(p);
 	//mCube.Initialise(*p);
 
-	Start();
+	//Start();
 }
 
-void PlayerControl::Start()
+void PlayerControl::Start(Vector3 startPos)
 {
-	mBall.GetPosition() = Vector3(0, 4, 0);
+	mBall.GetPosition() = startPos;
 	mVel = Vector3(0, 1, 0) * -5;
 	mDblVel = Vector3(0, 1, 0) * 5;
 	mGrav = Vector3(0, -9.81f, 0);

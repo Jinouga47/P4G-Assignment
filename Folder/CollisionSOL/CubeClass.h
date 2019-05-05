@@ -17,8 +17,8 @@ public:
 	void Initialise(Mesh& mesh, float x, float y);
 	Model GetCube();
 	
-	bool CollisionCheck(/*Model&*/PlayerControl& player);
-	void CollisionManager(/*Model&*/PlayerControl& player);
+	bool CollisionCheck(PlayerControl& player);
+	void CollisionManager(PlayerControl& player);
 private:
 	float y, x;
 };

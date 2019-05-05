@@ -30,7 +30,7 @@ public:
 
 	void Initialise(MeshManager& mgr);
 	void Input(std::unique_ptr<DirectX::Keyboard>&);
-	void Start();
+	void Start(DirectX::SimpleMath::Vector3);
 
 	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>&);
 	void Render(FX::MyFX& fx, float dTime);

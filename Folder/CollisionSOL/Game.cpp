@@ -48,6 +48,7 @@ void Game::Load()
 
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
+	mBuilder.LevelLoad(mPlayer, 2);
 	mEnemy.Initialise(mMeshMgr, 200);
 	mEnemy2.Initialise(mMeshMgr, 400);
 	mEnemy3.Initialise(mMeshMgr, 600);
