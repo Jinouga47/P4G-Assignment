@@ -37,10 +37,12 @@ void Key::Update(float dTime)
 	if (mBall.GetPosition().y <= hoverCentre) {
 		mVel -= mGrav * dTime;
 		mVel -= mAccel * dTime;
+		mBall.GetScale() -= mAccel * 2000 * dTime;
 	}
 	else {
 		mVel += mGrav * dTime;
 		mVel += mAccel * dTime;
+		mBall.GetScale() += mAccel * 2000 * dTime;
 	}
 }
 
