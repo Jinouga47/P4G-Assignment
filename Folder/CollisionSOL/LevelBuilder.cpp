@@ -151,7 +151,7 @@ void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 
 void LevelBuilder::Render(FX::MyFX& fx)
 {
-	for (int i = 0; i < 83; i++) {
+	for (int i = 0; i < size_; i++) {
 		fx.Render(mCubes[i], gd3dImmediateContext);
 	}
 }

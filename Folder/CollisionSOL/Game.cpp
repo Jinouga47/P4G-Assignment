@@ -48,7 +48,7 @@ void Game::Load()
 
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
-	mBuilder.LevelLoad(mPlayer, 2);
+	mBuilder.LevelLoad(mPlayer, 1);
 	mEnemy.Initialise(mMeshMgr, 200);
 	mEnemy2.Initialise(mMeshMgr, 400);
 	mEnemy3.Initialise(mMeshMgr, 600);
@@ -140,7 +140,7 @@ void Game::Update(float dTime)
 	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
 	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
 
-	
+
 
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
@@ -148,10 +148,14 @@ void Game::Update(float dTime)
 	mPlayer.Input(m_keyboard);
 	mBuilder.Collision(mPlayer);
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
-	playerPosList.push_back(mPlayer.mBall.GetPosition());
+	playerPosList.push_back(mPlayer.playerObject.GetPosition());
 	mEnemy.Update(dTime, &playerPosList);
 	mEnemy2.Update(dTime, &playerPosList);
 	mEnemy3.Update(dTime, &playerPosList);
+	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)){
+		PostQuitMessage(0);
+		return;
+	}
 }
 
 
@@ -173,7 +177,7 @@ void Game::Render(float dTime)
 
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
-	CreateViewMatrix(FX::GetViewMatrix(), mCamPos, Vector3(0, 0, 0), Vector3(0, 1, 0));
+	CreateViewMatrix(FX::GetViewMatrix(), mCamPos, Vector3(5, 5, 0), Vector3(0, 1, 0));
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
 
 

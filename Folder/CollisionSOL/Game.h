@@ -37,8 +37,8 @@ public:
 	std::unique_ptr<DirectX::Keyboard> m_keyboard;
 
 	//camera
-	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(0, 0, -25);
-	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(0, 0, -25);
+	const DirectX::SimpleMath::Vector3 mDefCamPos = DirectX::SimpleMath::Vector3(5, 5, -15);
+	DirectX::SimpleMath::Vector3 mCamPos = DirectX::SimpleMath::Vector3(5, 5, -15);
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 	//game models that reference meshes

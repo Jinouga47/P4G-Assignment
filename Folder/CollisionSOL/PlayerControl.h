@@ -13,9 +13,9 @@
 class PlayerControl
 {
 public:
-	Model mBall;
-	Model mCube;
-	Model cube;
+	Model playerObject;
+	//Model mCube;
+	//Model cube;
 	DirectX::SimpleMath::Vector3 mVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mDblVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mGrav = DirectX::SimpleMath::Vector3(0, 0, 0);

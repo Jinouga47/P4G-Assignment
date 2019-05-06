@@ -26,10 +26,10 @@ Model CubeClass::GetCube() {
 
 bool CubeClass::CollisionCheck(PlayerControl& player)
 {
-	float player_Xmin = player.mBall.GetPosition().x - player.mBall.GetScale().x;
-	float player_Xmax = player.mBall.GetPosition().x + player.mBall.GetScale().x;
-	float player_Ymin = player.mBall.GetPosition().y - player.mBall.GetScale().y;
-	float player_Ymax = player.mBall.GetPosition().y + player.mBall.GetScale().y;
+	float player_Xmin = player.playerObject.GetPosition().x - player.playerObject.GetScale().x;
+	float player_Xmax = player.playerObject.GetPosition().x + player.playerObject.GetScale().x;
+	float player_Ymin = player.playerObject.GetPosition().y - player.playerObject.GetScale().y;
+	float player_Ymax = player.playerObject.GetPosition().y + player.playerObject.GetScale().y;
 
 	float cube_Xmin = x - 0.25f;
 	float cube_Xmax = x + 0.25f;
@@ -45,7 +45,7 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 {
 	if (CollisionCheck(player_)) {
 		Vector3 A, B, C, D, Ap, Bp, Cp, Dp;
-		Model& player = player_.mBall;
+		Model& player = player_.playerObject;
 
 		A = Vector3(x - 0.25f, y + 0.25f, 1); //Top Left
 		B = Vector3(x - 0.25f, y - 0.25f, 1); //Bottom Left

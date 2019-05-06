@@ -36,6 +36,7 @@ public:
 	void Start();
 
 	void Update(float dTime, const std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
+	bool Enemy::CollisionCheck(PlayerControl& player);
 	void Render(FX::MyFX& fx, float dTime);
 
 private:
