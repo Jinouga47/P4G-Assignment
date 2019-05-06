@@ -129,24 +129,6 @@ void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 {
 	p = mgr.GetMesh("cube");
 	assert(p);
-	//Sets up the array for the cubes that make up the level
-	//for (int i = 0; i < 150; i++) {
-	//	cubies.Initialise(*p, cubeX[i], cubeY[i]);
-
-	//	cubiesArray[i] = cubies;
-
-	//	//List Stuff
-	//	//Level_x.addInFront(cubeX[i]);
-	//	//Level_y.addInFront(cubeY[i]);
-	//	//cubiesArray2.addAtEnd(cubies);
-	//	//mCubes2.addAtEnd(cubies.GetCube());
-	//	//List stuff
-
-	//	//mCubes[i] = cubiesArray[i].GetCube();
-	//	mCubes[i] = cubies.GetCube();
-	//	size_ = i + 1;
-	//	//Puts the the cube in the array
-	//}
 }
 
 void LevelBuilder::Render(FX::MyFX& fx)
@@ -161,7 +143,7 @@ Model LevelBuilder::GetCubes(int i)
 	return mCubes[i];
 }
 
-void LevelBuilder::LevelLoad(PlayerControl& player, int level)
+void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, int level)
 {
 	switch (level) {
 	case 1:
@@ -174,6 +156,7 @@ void LevelBuilder::LevelLoad(PlayerControl& player, int level)
 			//Puts the the cube in the array
 		}
 		player.Start(Vector3(4, 4, 0));
+		key.Start(Vector3(1, 6, 0));
 		break;
 	case 2:
 		for (int i = 0; i < 83; i++) {
@@ -195,10 +178,12 @@ int LevelBuilder::Size()
 	return size_;
 }
 
-void LevelBuilder::Collision(PlayerControl& player)
+void LevelBuilder::Collision(PlayerControl& player, Key& key)
 {
 	for (int i = 0; i < size_; i++)
 	{
 		cubiesArray[i].CollisionManager(player);
 	}
+
+	key.CollisionCheck(player);
 }

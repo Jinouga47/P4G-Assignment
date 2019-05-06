@@ -95,7 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BallSim.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
@@ -113,7 +113,7 @@
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BallSim.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="CubeClass.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />

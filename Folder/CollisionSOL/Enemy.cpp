@@ -49,10 +49,10 @@ bool Enemy::CollisionCheck(PlayerControl& player)
 	float player_Ymin = player.playerObject.GetPosition().y - player.playerObject.GetScale().y;
 	float player_Ymax = player.playerObject.GetPosition().y + player.playerObject.GetScale().y;
 
-	float cube_Xmin = mBall.GetPosition().x - 0.25f;
-	float cube_Xmax = mBall.GetPosition().x + 0.25f;
-	float cube_Ymin = mBall.GetPosition().y - 0.25f;
-	float cube_Ymax = mBall.GetPosition().y + 0.25f;
+	float cube_Xmin = mBall.GetPosition().x - 0.1f;
+	float cube_Xmax = mBall.GetPosition().x + 0.1f;
+	float cube_Ymin = mBall.GetPosition().y - 0.1f;
+	float cube_Ymax = mBall.GetPosition().y + 0.1f;
 
 	return (player_Xmin <= cube_Xmax && player_Xmax >= cube_Xmin) &&
 		(player_Ymin <= cube_Ymax && player_Ymax >= cube_Ymin);

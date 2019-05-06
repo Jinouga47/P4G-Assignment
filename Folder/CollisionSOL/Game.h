@@ -9,7 +9,7 @@
 #include "FX.h"
 #include "SpriteFont.h"
 #include "Input.h"
-#include "BallSim.h"
+#include "Key.h"
 #include "PlayerControl.h"
 #include "LevelBuilder.h"
 #include "Enemy.h"
@@ -75,7 +75,7 @@ private:
 	LoadData mLoadData;
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
-	BallSim mBallSim;
+	Key mKey;
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
 	Enemy mEnemy, mEnemy2, mEnemy3;

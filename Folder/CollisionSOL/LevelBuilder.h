@@ -10,6 +10,7 @@
 #include "SpriteFont.h"
 #include "CubeClass.h"
 #include "PlayerControl.h"
+#include "Key.h"
 #include "ListT.h"
 #include <array>
 class LevelBuilder
@@ -30,8 +31,8 @@ public:
 	int Size();
 	void Render(FX::MyFX& fx);//, int levelSize);
 	Model GetCubes(int i);
-	void Collision(PlayerControl&);
-	void LevelLoad(PlayerControl&, int);
+	void Collision(PlayerControl&, Key&);
+	void LevelLoad(PlayerControl&, Key&, int);
 private:
 	int size_;
 	Mesh *p;

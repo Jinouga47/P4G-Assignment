@@ -19,10 +19,6 @@ void PlayerControl::Initialise(MeshManager& mgr)
 	mat.flags &= ~MaterialExt::TFlags::LIT;
 	mat.flags &= ~MaterialExt::TFlags::CCW_WINDING;
 	playerObject.SetOverrideMat(&mat);
-	//assert(p);
-	//mCube.Initialise(*p);
-
-	//Start();
 }
 
 void PlayerControl::Start(Vector3 startPos)
@@ -124,9 +120,6 @@ void PlayerControl::Render(FX::MyFX& fx, float dTime)
 {
 	fx.Render(playerObject, gd3dImmediateContext);
 	FX::SetupPointLight(1, true, playerObject.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
-	//mCube.GetPosition() = Vector3(1, 1, 0);
-	//mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
-	//fx.Render(mCube, gd3dImmediateContext);
 }
 
 void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)

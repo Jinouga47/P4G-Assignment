@@ -1,5 +1,5 @@
-#ifndef BALLSIM_H
-#define BALLSIM_H
+#ifndef KEY_H
+#define KEY_H
 
 #include "Mesh.h"
 #include "Model.h"
@@ -7,8 +7,9 @@
 #include "FX.h"
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
+#include "PlayerControl.h"
 
-class BallSim
+class Key
 {
 public:
 	Model mBall;
@@ -16,20 +17,16 @@ public:
 	DirectX::SimpleMath::Vector3 mVel = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mGrav = DirectX::SimpleMath::Vector3(0, 0, 0);
 	DirectX::SimpleMath::Vector3 mAccel = DirectX::SimpleMath::Vector3(0, 0, 0);
-	float mCOR = 1;
 	float mRadius = 0.1f;
-	enum class Mode { WAITING, LINEAR, LINEAR_ACCEL, BOUNCE_INF, BOUNCE, CUBE, CUBE_MOUSE, MULTI };
-	Mode mMode, mLastMode;
 
 	void Initialise(MeshManager& mgr);
-	void Input(char key);
-	void Start();
-
-	void Update(float dTime, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, Model& rock);
-	void Render(FX::MyFX& fx, float dTime);
-	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
+	void Start(DirectX::SimpleMath::Vector3);
+	bool CollisionCheck(PlayerControl&);
+	void Update(float dTime);
+	void Render(FX::MyFX& fx);
 private:
 	std::vector<Model> mCubes;
+	int hoverCentre;
 };
 
 #endif

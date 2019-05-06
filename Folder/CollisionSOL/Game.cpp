@@ -48,7 +48,8 @@ void Game::Load()
 
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
-	mBuilder.LevelLoad(mPlayer, 1);
+	mKey.Initialise(mMeshMgr);
+	mBuilder.LevelLoad(mPlayer, mKey, 1);
 	mEnemy.Initialise(mMeshMgr, 200);
 	mEnemy2.Initialise(mMeshMgr, 400);
 	mEnemy3.Initialise(mMeshMgr, 600);
@@ -146,13 +147,14 @@ void Game::Update(float dTime)
 	if (mLoadData.running)
 		return;
 	mPlayer.Input(m_keyboard);
-	mBuilder.Collision(mPlayer);
+	mBuilder.Collision(mPlayer, mKey);
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
+	mKey.Update(dTime);
 	playerPosList.push_back(mPlayer.playerObject.GetPosition());
 	mEnemy.Update(dTime, &playerPosList);
 	mEnemy2.Update(dTime, &playerPosList);
 	mEnemy3.Update(dTime, &playerPosList);
-	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)){
+	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer) || mKey.CollisionCheck(mPlayer)){
 		PostQuitMessage(0);
 		return;
 	}
@@ -189,9 +191,8 @@ void Game::Render(float dTime)
 	mEnemy.Render(mFX, dTime);
 	mEnemy2.Render(mFX, dTime);
 	mEnemy3.Render(mFX, dTime);
+	mKey.Render(mFX);
 
-	mCube.GetPosition() = CubePos;
-	//mFX.Render(mCube, gd3dImmediateContext);
 
 
 	CommonStates state(gd3dDevice);
