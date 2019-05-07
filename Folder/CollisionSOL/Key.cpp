@@ -28,24 +28,27 @@ void Key::Start(Vector3 startPos)
 	mAccel = Vector3(0, 0, 0);
 	mBall.GetPosition() = startPos;
 	hoverCentre = startPos.y;
+	obtained = false;
 }
 
-void Key::Update(float dTime)
+void Key::Update(float dTime, PlayerControl& player)
 {
-	mBall.GetPosition() += mVel * dTime;
+	mBall.GetPosition() += mVel * dTime * SpeedLimiter;
 
 	if (mBall.GetPosition().y <= hoverCentre) {
-		mVel -= mGrav * dTime;
-		mVel -= mAccel * dTime;
-		mBall.GetScale() -= mAccel * 2000 * dTime;
+		mVel -= mGrav * dTime * SpeedLimiter;
+		mVel -= mAccel * dTime * SpeedLimiter;
+		mBall.GetScale() -= mAccel * 2000 * dTime * SpeedLimiter;
 	}
 	else {
-		mVel += mGrav * dTime;
-		mVel += mAccel * dTime;
-		mBall.GetScale() += mAccel * 2000 * dTime;
+		mVel += mGrav * dTime * SpeedLimiter;
+		mVel += mAccel * dTime * SpeedLimiter;
+		mBall.GetScale() += mAccel * 2000 * dTime * SpeedLimiter;
 	}
-}
 
+	if (!obtained)
+		obtained = CollisionCheck(player);
+}
 
 bool Key::CollisionCheck(PlayerControl& player)
 {

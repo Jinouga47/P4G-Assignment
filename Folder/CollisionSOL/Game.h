@@ -13,6 +13,10 @@
 #include "PlayerControl.h"
 #include "LevelBuilder.h"
 #include "Enemy.h"
+
+#include "StartScreen.h"
+
+
 #include <Keyboard.h>
 //wrap up comon behaviours, initialisation+shutdown
 class Game
@@ -59,7 +63,7 @@ private:
 	//text
 	DirectX::SpriteBatch *mpSpriteBatch = nullptr;
 	DirectX::SpriteFont *mpFont = nullptr, *mpFont2 = nullptr;
-	
+
 	//loading handler
 	struct LoadData
 	{
@@ -73,17 +77,19 @@ private:
 		bool running = false;
 	};
 	LoadData mLoadData;
+
 	MouseAndKeys mMKInput;
 	Gamepad mGamepad;
+
 	Key mKey;
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
 	Enemy mEnemy, mEnemy2, mEnemy3;
-
+	StartScreen start;
 	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
 
-
-	DirectX::SimpleMath::Vector3 CubePos;
+	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE };
+	GameState state = GameState::START;
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef SCREENMANAGER_H
+#define SCREENMANAGER_H
 
 #include "Mesh.h"
 #include "Model.h"
@@ -10,7 +10,7 @@
 #include "PlayerControl.h"
 #include <Keyboard.h>
 #include <vector>
-class Enemy
+class ScreenManager
 {
 public:
 
@@ -25,15 +25,17 @@ public:
 
 	int delayCounter = 0;
 	int delay;
-	
+	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE };
+	GameState state = GameState::START;
+
 	void Initialise(MeshManager& mgr, int delay);
 	void Start();
 	void Update(float dTime, const std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
-	bool CollisionCheck(PlayerControl& player);
+	void LoadScreen(int);
 	void Render(FX::MyFX& fx, float dTime);
 
 private:
 
 };
 
-#endif // !ENEMY_H
+#endif // !SCREENMANAGER_H

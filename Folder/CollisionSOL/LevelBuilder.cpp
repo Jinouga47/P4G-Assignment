@@ -168,6 +168,7 @@ void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, int level)
 			//Puts the the cube in the array
 		}
 		player.Start(Vector3(3, 4, 0));
+		key.Start(Vector3(8.5f, 1, 0));
 		break;
 	}
 

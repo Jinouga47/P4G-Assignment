@@ -24,8 +24,8 @@ void PlayerControl::Initialise(MeshManager& mgr)
 void PlayerControl::Start(Vector3 startPos)
 {
 	playerObject.GetPosition() = startPos;
-	mVel = Vector3(0, 1, 0) * -4;
-	mDblVel = Vector3(0, 1, 0) * 4;
+	mVel = Vector3(0, -4, 0);
+	mDblVel = Vector3(0, 4, 0);
 	mGrav = Vector3(0, -9.81f, 0);
 	mAccel = Vector3(0, 0, 0);
 	mCOR = 1;
@@ -68,7 +68,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 		Airborne = true;
 		SecondJump = false;
 		//Reset the initial velocity
-		mVel = Vector3(0, 1, 0) * 4;
+		mVel = Vector3(0, 4, 0);
 	}
 }
 
@@ -89,9 +89,9 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 	//instead of dTime and mVel. mDblVel and dTime2 are basically what mVel and dTime would be if the player was
 	//on the ground, thus treating their airborne state as a psudeo grounded state in order for them to jump again.
 	if (Airborne && !SecondJump)
-		pos += mDblVel * dTime2;
+		pos += mDblVel * dTime2 * SpeedLimiter;
 	else
-		pos += mVel * dTime;
+		pos += mVel * dTime * SpeedLimiter;
 	playerObject.GetPosition() = pos;
 
 	//Apply gravity
@@ -106,12 +106,12 @@ void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, Mou
 	else
 	{
 		if (Airborne && !SecondJump) {
-			mDblVel += mGrav * dTime2;
-			mDblVel += mAccel * dTime2;
+			mDblVel += mGrav * dTime2 * SpeedLimiter;
+			mDblVel += mAccel * dTime2 * SpeedLimiter;
 		}
 		else {
-			mVel += mGrav * dTime;
-			mVel += mAccel * dTime;
+			mVel += mGrav * dTime * SpeedLimiter;
+			mVel += mAccel * dTime * SpeedLimiter;
 		}
 	}
 }

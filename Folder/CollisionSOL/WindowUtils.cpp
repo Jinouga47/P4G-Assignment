@@ -225,7 +225,8 @@ int Run(void(*pUpdate)(float), void(*pRender)(float))
 
 				__int64 time2;
 				QueryPerformanceCounter((LARGE_INTEGER*)&time2);
-				deltaTime = (float)((time2 - time1)*secondsPerCount);
+				//deltaTime = (float)((time2 - time1)*secondsPerCount);
+				deltaTime = 1 / 60.5f;
 				if (!mAppPaused)
 					AddSecToClock(deltaTime);
 				Sleep(0);

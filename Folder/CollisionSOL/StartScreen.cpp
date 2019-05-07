@@ -1,13 +1,13 @@
 #include <iomanip>
 
-#include "Enemy.h"
+#include "StartScreen.h"
 #include "D3D.h"
 
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void Enemy::Initialise(MeshManager& mgr, int delayIn)
+void StartScreen::Initialise(MeshManager& mgr, int delayIn)
 {
 	Mesh *p = mgr.GetMesh("sphere");
 	assert(p);
@@ -24,12 +24,12 @@ void Enemy::Initialise(MeshManager& mgr, int delayIn)
 
 }
 
-void Enemy::Start()
+void StartScreen::Start()
 {
 	mBall.GetPosition() = Vector3(0.1f, 0.1f, 0);
 }
 
-void Enemy::Update(float dTime, const vector<Vector3>* playerPosList)
+void StartScreen::Update(float dTime, const vector<Vector3>* playerPosList)
 {
 
 	if (delayCounter > delay)
@@ -39,7 +39,7 @@ void Enemy::Update(float dTime, const vector<Vector3>* playerPosList)
 	delayCounter++;
 }
 
-bool Enemy::CollisionCheck(PlayerControl& player)
+bool StartScreen::CollisionCheck(PlayerControl& player)
 {
 	float player_Xmin = player.playerObject.GetPosition().x - player.playerObject.GetScale().x;
 	float player_Xmax = player.playerObject.GetPosition().x + player.playerObject.GetScale().x;
@@ -56,7 +56,7 @@ bool Enemy::CollisionCheck(PlayerControl& player)
 }
 
 
-void Enemy::Render(FX::MyFX& fx, float dTime)
+void StartScreen::Render(FX::MyFX& fx, float dTime)
 {
 	fx.Render(mBall, gd3dImmediateContext);
 	FX::SetupPointLight(2, true, mBall.GetPosition(), Vector3(0.7f, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);

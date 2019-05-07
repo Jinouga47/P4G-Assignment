@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef STARTSCREEN_H
+#define STARTSCREEN_H
 
 #include "Mesh.h"
 #include "Model.h"
@@ -10,7 +10,7 @@
 #include "PlayerControl.h"
 #include <Keyboard.h>
 #include <vector>
-class Enemy
+class StartScreen
 {
 public:
 
@@ -25,7 +25,7 @@ public:
 
 	int delayCounter = 0;
 	int delay;
-	
+
 	void Initialise(MeshManager& mgr, int delay);
 	void Start();
 	void Update(float dTime, const std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
@@ -36,4 +36,4 @@ private:
 
 };
 
-#endif // !ENEMY_H
+#endif // !STARTSCREEN_H
