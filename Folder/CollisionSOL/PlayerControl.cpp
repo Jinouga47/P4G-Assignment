@@ -57,7 +57,8 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 		Airborne = true;
 		SecondJump = true;
 		//bounce up
-		mVel.y *= -1;
+		//mVel.y *= -1;
+		mVel.y = 5;
 		//lose energy
 		mVel *= mCOR;
 	}
@@ -68,7 +69,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 		Airborne = true;
 		SecondJump = false;
 		//Reset the initial velocity
-		mVel = Vector3(0, 4, 0);
+		mVel = Vector3(0, 5, 0);
 	}
 }
 

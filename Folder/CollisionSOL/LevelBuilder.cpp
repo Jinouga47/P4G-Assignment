@@ -9,22 +9,6 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 //First Level
-/*float cubeX[125] = {-3.5f, -3, -2.5f, -2, -1.5f, -1, -0.5f, 0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 3.5f,
-					3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 
-					3.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3, 2.5f, 2, 1.5f, 1, 0.5f, 0, -0.5f, -1, -1.5f, -2,
-					-2.5f, -3, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, 
-					-3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -2, -2, -2,
-					-2, -2, -2, -1.5f, -1, -0.5f, 0, -1, -1, -1, -1, 1.5, 3, -1, -1, 2, 2, 2, 2, 2, 2,
-					2, 2, 2, 2, 2, 2, 2, -3, -2.5f, -2, -1.5f, -1, -0.5f, 0, 0.5f, 1, 1.5f, 2.5f, -3,
-					-2.5f, -2, -1.5f, -1, -0.5f, 0, 0.5, 3, -2.5f, 0, 0, 0, 0, 0};*/
-
-/*float cubeY[125] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4,
-					4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f, 10, 10, 10, 10, 10, 10, 10, 10, 
-					10, 10, 10, 10, 10, 10, 10, 9.5f, 9, 8.5f, 8, 7.5f, 7, 6.5f, 6, 5.5f, 5, 4.5f, 4,
-					3.5f, 3, 2.5f, 2, 1.5f, 1, 0.5f, 9.5f, 9, 8.5f, 8, 7.5f, 6, 6, 6, 6, 6, 6.5f, 7,
-					7.5f, 8, 6, 6, 5, 4.5f, 8, 7.5f, 7, 6.5f, 6, 5.5f, 5, 4.5f, 4, 3.5f, 3, 2.5f, 2, 
-					4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 9.5f, 9, 8.5f, 8, 7.5f};*/
-
 float cubeX[143] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,		//Bottom of level
 					0, 9.5f, 
 					0, 9.5f,
@@ -67,17 +51,6 @@ float cubeY[143] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	
 					9, 9, 9, 9, 9,
 					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};		//Top of level
 
-
-//Second Level
-//float cubeX2[61] = {-3.5f, -3, -2.5f, -2, -1.5f, -1, -0.5f, 0, 0.5f, 1, 1, 1, 1, 1.5f, 2, 2.5f, 3, 3.5f,
-//					1.5f, 2, 2.5f, -3.5f, -3, -2.5f, -2, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3.5f, 
-//					-3.5f, -3.5f, -3.5f, -3.5f, -3.5f, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, 
-//					-2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f};
-
-//float cubeY2[61] = {0, 0, 0, 0, 0, 0, 1.5f, 1.5f, 1.5f, 2.5f, 4.5f, 6.5f, 8.5f, 7, 5, 3, 0, 0, 1.5f,
-//					1.5f, 1.5f, 2.5f, 2.5f, 2.5f, 2.5f, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,
-//					10, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f, 10, 4.5f, 5, 5.5f, 6, 6.5f, 7,
-//					7.5f, 8, 8.5f, 9, 9.5f, 10};
 
 float cubeX2[83] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 7.5f, 8, 8.5f, 9, 9.5f,
 					0, 9.5f,
@@ -167,7 +140,6 @@ float cubeY4[117] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};	//Top of level
 
 //Fifth level
-
 float cubeX5[81] = {0, 0.5f, 1, 1.5f, 2, 3, 5, 6.5f, 8.5f, 9, 9.5f,													//Bottom of level
 					0, 9.5f,
 					0, 9.5f,
@@ -213,7 +185,6 @@ float cubeY5[81] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,																//Bottom of 
 
 
 //Sixth level
-
 float cubeX6[115] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,											//Bottom of level
 					0, 9.5f,
 					0, 9.5f,
@@ -257,7 +228,7 @@ float cubeY6[115] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 					9, 9,
 					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};	//Top of level
 
-void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
+void LevelBuilder::Initialise(MeshManager& mgr)
 {
 	p = mgr.GetMesh("cube");
 	assert(p);
@@ -275,7 +246,7 @@ Model LevelBuilder::GetCubes(int i)
 	return mCubes[i];
 }
 
-void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, int level)
+void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, Door& door, int level)
 {
 	switch (level) {
 	case 1:
@@ -289,6 +260,7 @@ void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, int level)
 		}
 		player.Start(Vector3(4, 4, 0));
 		key.Start(Vector3(1, 6, 0));
+		door.Start(Vector3(2, 6, 0));
 		break;
 	case 2:
 		for (int i = 0; i < 83; i++) {
@@ -301,9 +273,61 @@ void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, int level)
 		}
 		player.Start(Vector3(3, 4, 0));
 		key.Start(Vector3(8.5f, 1, 0));
+		door.Start(Vector3(1, 6, 0));
+		break;
+	case 3:
+		for (int i = 0; i < 83; i++) {
+			cubies.Initialise(*p, cubeX2[i], cubeY2[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(3, 4, 0));
+		key.Start(Vector3(8.5f, 1, 0));
+		door.Start(Vector3(1, 6, 0));
+		break;
+	case 4:
+		for (int i = 0; i < 117; i++) {
+			cubies.Initialise(*p, cubeX4[i], cubeY4[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(3, 4, 0));
+		key.Start(Vector3(8.5f, 1, 0));
+		door.Start(Vector3(1, 6, 0));
+		break;
+	case 5:
+		for (int i = 0; i < 81; i++) {
+			cubies.Initialise(*p, cubeX5[i], cubeY5[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(3, 4, 0));
+		key.Start(Vector3(8.5f, 1, 0));
+		door.Start(Vector3(1, 6, 0));
+		break;
+	case 6:
+		for (int i = 0; i < 116; i++) {
+			cubies.Initialise(*p, cubeX6[i], cubeY6[i]);
+
+			cubiesArray[i] = cubies;
+			mCubes[i] = cubies.GetCube();
+			size_ = i + 1;
+			//Puts the the cube in the array
+		}
+		player.Start(Vector3(3, 4, 0));
+		key.Start(Vector3(8.5f, 1, 0));
+		door.Start(Vector3(1, 6, 0));
 		break;
 	}
-
 }
 
 int LevelBuilder::Size()
@@ -317,6 +341,4 @@ void LevelBuilder::Collision(PlayerControl& player, Key& key)
 	{
 		cubiesArray[i].CollisionManager(player);
 	}
-
-	key.CollisionCheck(player);
 }

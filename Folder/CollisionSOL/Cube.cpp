@@ -48,7 +48,7 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 		Model& player = player_.playerObject;
 		float tempYBuffer = 0.07f;
 		float tempXBuffer = 0.08f;
-		float tempYScale = 0.05f;
+		float tempYScale = 0.015f;
 
 		A = Vector3(x - mCube.GetScale().x, y + mCube.GetScale().y, 1); //Top Left
 		B = Vector3(x - mCube.GetScale().x, y - mCube.GetScale().y, 1); //Bottom Left
@@ -81,8 +81,8 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 			player.GetPosition().y = mCube.GetScale().y + mCube.GetPosition().y + player.GetScale().y + tempYScale;
 			player_.Airborne = false;
 			player_.SecondJump = false;
-			player_.mDblVel = Vector3(0, 1, 0) * 5;
-			player_.mVel = Vector3(0, 1, 0) * -5;
+			player_.mDblVel.y = 5;
+			player_.mVel.y = -5;
 		}
 	}
 }

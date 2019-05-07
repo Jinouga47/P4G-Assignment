@@ -21,24 +21,25 @@ void Game::Load()
 {
 	m_keyboard = std::make_unique<Keyboard>();
 
-	mTorch.Initialise(BuildSphere(mMeshMgr, 16, 16));
+	mSphere.Initialise(BuildSphere(mMeshMgr, 16, 16));
 
 	mCube.Initialise(BuildCube(mMeshMgr));
 
 	mPlayer.Initialise(mMeshMgr);
 	mBuilder.Initialise(mMeshMgr);
 	mKey.Initialise(mMeshMgr);
-	mBuilder.LevelLoad(mPlayer, mKey, 2);
-	mEnemy.Initialise(mMeshMgr, 200);
-	mEnemy2.Initialise(mMeshMgr, 400);
-	mEnemy3.Initialise(mMeshMgr, 600);
+	mDoor.Initialise(mMeshMgr);
+	mBuilder.LevelLoad(mPlayer, mKey, mDoor, 6);
+	mEnemy.Initialise(mMeshMgr, 350);
+	mEnemy2.Initialise(mMeshMgr, 700);
+	mEnemy3.Initialise(mMeshMgr, 1050);
 	mLoadData.loadedSoFar++;
 
 }
 
 void Game::LoadDisplay(float dTime)
 {
-	BeginRender(Colours::Black);
+	/*BeginRender(Colours::Black);
 
 	mpSpriteBatch->Begin();
 
@@ -63,7 +64,7 @@ void Game::LoadDisplay(float dTime)
 
 	mpSpriteBatch->End();
 
-	EndRender();
+	EndRender();*/
 }
 
 void Game::Initialise()
@@ -105,12 +106,6 @@ void Game::Release()
 
 void Game::Update(float dTime)
 {
-	mGamepad.Update();
-
-	mCamPos.x += mGamepad.GetState(0).leftStickX * dTime;
-	mCamPos.z += mGamepad.GetState(0).leftStickY * dTime;
-	mCamPos.y += mGamepad.GetState(0).rightStickY * dTime;
-
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
@@ -118,15 +113,19 @@ void Game::Update(float dTime)
 	mBuilder.Collision(mPlayer, mKey);
 	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
 	mKey.Update(dTime, mPlayer);
+	mDoor.Update(dTime, mPlayer);
 	playerPosList.push_back(mPlayer.playerObject.GetPosition());
 	mEnemy.Update(dTime, &playerPosList);
 	mEnemy2.Update(dTime, &playerPosList);
 	mEnemy3.Update(dTime, &playerPosList);
-	if (mKey.obtained/* && mDoor.CollisionCheck(mPlayer)*/)
+	if (mKey.obtained && mDoor.CollisionCheck(mPlayer)) {
 		state = GameState::RESULT;
-	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
 		PostQuitMessage(0);
 		return;
+	}
+	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
+		//PostQuitMessage(0);
+		//return;
 	}
 
 	//switch (state)
@@ -190,7 +189,7 @@ void Game::Render(float dTime)
 		return;
 	}
 
-	BeginRender(Colours::Black);
+	BeginRender(Colours::White);
 
 	FX::SetPerFrameConsts(gd3dImmediateContext, mCamPos);
 
@@ -198,14 +197,15 @@ void Game::Render(float dTime)
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
 
 	MaterialExt mat = MaterialExt::default;
-	//if (state == GameState::GAME)
 	mPlayer.Render(mFX, dTime);
 	mBuilder.Render(mFX);
 	mEnemy.Render(mFX, dTime);
 	mEnemy2.Render(mFX, dTime);
 	mEnemy3.Render(mFX, dTime);
-	if (state != GameState::RESULT)
+	if (!mKey.obtained)
 		mKey.Render(mFX);
+	else
+		mDoor.Render(mFX);
 
 	CommonStates state(gd3dDevice);
 	mpSpriteBatch->Begin(SpriteSortMode_Deferred, state.NonPremultiplied());
@@ -258,7 +258,6 @@ void Game::Render(float dTime)
 
 LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	const float camInc = 20.f * GetElapsedSec();
 	//do something game specific here
 	switch (msg)
 	{

@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="D3D.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="CubeClass.h" />
     <ClInclude Include="D3D.h" />

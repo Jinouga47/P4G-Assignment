@@ -11,40 +11,22 @@
 #include "CubeClass.h"
 #include "PlayerControl.h"
 #include "Key.h"
-#include "ListT.h"
-#include <array>
+#include "Door.h"
 class LevelBuilder
 {
 public:
-	//float cubeX[10];
-	//float cubeY[10];
-	//Model mCube;
 	Model mCubes[150];
 	CubeClass cubies;
 	CubeClass cubiesArray[150];
 
-	List<CubeClass> cubiesArray2;
-	List<Model> mCubes2;
-	//int test[3][2] = { {0,0},{1,0},{2,0} };
-	//Vector2 test2[3] = { Vector2(1,1), Vector2(1,2), Vector2(1,3) };
-	void Initialise(MeshManager& mgr);//, int levelSize);
+	void Initialise(MeshManager& mgr);
 	int Size();
-	void Render(FX::MyFX& fx);//, int levelSize);
+	void Render(FX::MyFX& fx);
 	Model GetCubes(int i);
 	void Collision(PlayerControl&, Key&);
-	void LevelLoad(PlayerControl&, Key&, int);
+	void LevelLoad(PlayerControl&, Key&, Door&, int);
 private:
 	int size_;
 	Mesh *p;
-	struct Level
-	{
-		//int level;
-		List<int> x;
-		List<int> y;
-	};
-	List<int> Level_x;
-	List<int> Level_y;
-
-	
 };
 #endif

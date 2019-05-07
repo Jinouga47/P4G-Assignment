@@ -14,7 +14,7 @@
 #include "LevelBuilder.h"
 #include "Enemy.h"
 
-#include "StartScreen.h"
+#include "Door.h"
 
 
 #include <Keyboard.h>
@@ -46,7 +46,7 @@ public:
 	//ensure each mesh is loaded and release exactly once
 	MeshManager mMeshMgr;
 	//game models that reference meshes
-	Model mQuad, mTorch, mCube, mRock;
+	Model mSphere, mCube;
 	//handy rendering state
 	FX::MyFX mFX;
 
@@ -85,7 +85,7 @@ private:
 	PlayerControl mPlayer;
 	LevelBuilder mBuilder;
 	Enemy mEnemy, mEnemy2, mEnemy3;
-	StartScreen start;
+	Door mDoor;
 	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
 
 	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE };
