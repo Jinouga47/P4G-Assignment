@@ -122,8 +122,140 @@ float cubeY2[83] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 					9, 9,
 					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};
 
-//Third Level
+//Fourth Level
+float cubeX4[117] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,		//Bottom of level
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 9.5f,							//First platform
+					0, 3.5f, 9.5f,
+					0, 3.5f, 9.5f,
+					0, 3.5f, 9.5f,
+					0, 0.5f, 3.5f, 4, 4.5f, 5, 5.5f, 6, 9, 9.5f,													//Top of rectangle housing next level warp
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 1, 8.5f, 9.5f,																				//Two small platforms for reaching the top one
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 9.5f,							//Top platform
+					0, 9.5f,
+					0, 9.5f,
+					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f};		//Top of level
 
+
+float cubeY4[117] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,									//Bottom of level
+					0.5f, 0.5f,
+					1, 1,
+					1.5f, 1.5f,
+					2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,													//First platform
+					2.5f, 2.5f, 2.5f,
+					3, 3, 3,
+					3.5f, 3.5f, 3.5f,
+					4, 4, 4, 4, 4, 4, 4, 4, 4, 4,																	//Top of rectangle housing next level warp	
+					4.5f, 4.5f,
+					5, 5,
+					5.5f, 5.5f,
+					6, 6, 6, 6,																						//Two small platforms for reaching the top one
+					6.5f, 6.5f,
+					7, 7,
+					7.5f, 7.5f,
+					8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,													//Top platform
+					8.5f, 8.5f,
+					9, 9,
+					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};	//Top of level
+
+//Fifth level
+
+float cubeX5[81] = {0, 0.5f, 1, 1.5f, 2, 3, 5, 6.5f, 8.5f, 9, 9.5f,													//Bottom of level
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 0.5f, 1, 1.5f, 9.5f,																			//Top of rectangle housing next level warp
+					0, 9.5f, 
+					0, 9.5f, 
+					0, 9.5f, 
+					0, 9.5f, 
+					0, 9.5f, 
+					0, 9.5f, 
+					0, 3, 3.5f, 4, 4.5f, 5, 5.5f, 9.5f,																//Third platform (you start at the level top)
+					0, 9.5f,
+					0, 2, 2.5f, 9.5f,																				//Second platform
+					0, 9.5f,
+					0, 0.5f, 1, 1.5f, 9.5f,																			//First platform
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f};		//Top of level
+
+
+float cubeY5[81] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,																//Bottom of level
+					0.5f, 0.5f,
+					1, 1,
+					1.5f, 1.5f,
+					2, 2, 2, 2, 2,																					//Top of rectangle housing next level warp
+					2.5f, 2.5f,
+					3, 3,
+					3.5f, 3.5f,
+					4, 4,
+					4.5f, 4.5f,
+					5, 5,
+					5.5f, 5.5f, 5.5f, 5.5f, 5.5f, 5.5f, 5.5f, 5.5f,													//Third platform (you start at the level top)
+					6, 6,
+					6.5f, 6.5f, 6.5f, 6.5f,																			//Second platform
+					7, 7,
+					7.5f, 7.5f, 7.5f, 7.5f, 7.5f,																	//First platform
+					8, 8,
+					8.5f, 8.5f,
+					9, 9,
+					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};	//Top of level
+
+
+//Sixth level
+
+float cubeX6[115] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,											//Bottom of level
+					0, 9.5f,
+					0, 9.5f,
+					0, 1, 2, 3, 6.5f, 7.5f, 8, 9.5f,																//Beginning of rectangular box sections
+					0, 2, 7.5f, 9.5f,
+					0, 2, 3.5f, 4, 4.5f, 5, 5.5f, 6, 7.5f, 9.5f,
+					0, 1.5f, 2, 7.5f, 9, 9.5f,
+					0, 2, 7.5f, 9.5f,
+					0, 0.5f, 2, 7.5f, 9.5f,
+					0, 2, 7.5f, 8.5f, 9.5f,
+					0, 2, 7.5f, 9.5f,
+					0, 1, 1.5f, 2, 7.5f, 9.5f,
+					0, 2, 7.5f, 8, 9.5f,
+					0, 2, 9.5f,
+					0, 2, 9.5f,
+					0, 0.5f, 1, 1.5f, 2, 7.5f, 8, 8.5f, 9, 9.5f,													//End of rectangular box sections
+					0, 9.5f,
+					0, 9.5f,
+					0, 9.5f,
+					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f};		//Top of level
+
+
+float cubeY6[115] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+					0.5f, 0.5f,
+					1, 1,
+					1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f,													//Beginning of rectangular box sections
+					2, 2, 2, 2,
+					2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
+					3, 3, 3, 3, 3, 3,
+					3.5f, 3.5f, 3.5f, 3.5f,
+					4, 4, 4, 4, 4,
+					4.5f, 4.5f, 4.5f, 4.5f, 4.5f,
+					5, 5, 5, 5,
+					5.5f, 5.5f, 5.5f, 5.5f, 5.5f, 5.5f,
+					6, 6, 6, 6, 6,
+					6.5f, 6.5f, 6.5f,
+					7, 7, 7,
+					7.5f, 7.5f, 7.5f, 7.5f, 7.5f, 7.5f, 7.5f, 7.5f, 7.5f, 7.5f,										//End of rectangular box sections
+					8, 8,
+					8.5f, 8.5f,
+					9, 9,
+					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};	//Top of level
 
 void LevelBuilder::Initialise(MeshManager& mgr)//, int levelSize)
 {
