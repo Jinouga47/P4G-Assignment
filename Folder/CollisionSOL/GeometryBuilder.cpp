@@ -131,35 +131,35 @@ Mesh& BuildCube(MeshManager& mgr)
 	// Create vertex buffer
 	VertexPosNormTex vertices[] =
 	{	//front
-		{ Vector3(-1, -1, -1), Vector3(0, 0, -1), Vector2(0, 1) },
+		{ Vector3(-1, -1, -1), Vector3(0, 0, -1), Vector2(0, 0.5f) },
 		{ Vector3(-1, 1, -1), Vector3(0, 0, -1), Vector2(0, 0) },
-		{ Vector3(1, 1, -1), Vector3(0, 0, -1), Vector2(1, 0) },
-		{ Vector3(1, -1, -1), Vector3(0, 0, -1), Vector2(1, 1) },
+		{ Vector3(1, 1, -1), Vector3(0, 0, -1), Vector2(0.25f, 0) },
+		{ Vector3(1, -1, -1), Vector3(0, 0, -1), Vector2(0.25f, 0.5f) },
 		//right
-		{ Vector3(1, -1, -1), Vector3(1, 0, 0), Vector2(0, 1) },
-		{ Vector3(1, 1, -1), Vector3(1, 0, 0), Vector2(0, 0) },
-		{ Vector3(1, 1, 1), Vector3(1, 0, 0), Vector2(1, 0) },
-		{ Vector3(1, -1, 1), Vector3(1, 0, 0), Vector2(1, 1) },
+		{ Vector3(1, -1, -1), Vector3(1, 0, 0), Vector2(0.25f, 0.5f) },
+		{ Vector3(1, 1, -1), Vector3(1, 0, 0), Vector2(0.25f, 0) },
+		{ Vector3(1, 1, 1), Vector3(1, 0, 0), Vector2(0.5f, 0) },
+		{ Vector3(1, -1, 1), Vector3(1, 0, 0), Vector2(0.5f, 0.5f) },
 		//left
-		{ Vector3(-1, -1, 1), Vector3(-1, 0, 0), Vector2(0, 1) },
-		{ Vector3(-1, 1, 1), Vector3(-1, 0, 0), Vector2(0, 0) },
-		{ Vector3(-1, 1, -1), Vector3(-1, 0, 0), Vector2(1, 0) },
-		{ Vector3(-1, -1, -1), Vector3(-1, 0, 0), Vector2(1, 1) },
+		{ Vector3(-1, -1, 1), Vector3(-1, 0, 0), Vector2(0.5f, 0.5f) },
+		{ Vector3(-1, 1, 1), Vector3(-1, 0, 0), Vector2(0.5f, 0) },
+		{ Vector3(-1, 1, -1), Vector3(-1, 0, 0), Vector2(0.75f, 0) },
+		{ Vector3(-1, -1, -1), Vector3(-1, 0, 0), Vector2(0.75f, 0.5f) },
 		//top
-		{ Vector3(-1, 1, -1), Vector3(0, 1, 0), Vector2(0, 1) },
-		{ Vector3(-1, 1, 1), Vector3(0, 1, 0), Vector2(0, 0) },
+		{ Vector3(-1, 1, -1), Vector3(0, 1, 0), Vector2(0.75f, 0.5f) },
+		{ Vector3(-1, 1, 1), Vector3(0, 1, 0), Vector2(0.75f, 0) },
 		{ Vector3(1, 1, 1), Vector3(0, 1, 0), Vector2(1, 0) },
-		{ Vector3(1, 1, -1), Vector3(0, 1, 0), Vector2(1, 1) },
+		{ Vector3(1, 1, -1), Vector3(0, 1, 0), Vector2(1, 0.5f) },
 		//bottom
 		{ Vector3(1, -1, -1), Vector3(0, -1, 0), Vector2(0, 1) },
-		{ Vector3(1, -1, 1), Vector3(0, -1, 0), Vector2(0, 0) },
-		{ Vector3(-1, -1, 1), Vector3(0, -1, 0), Vector2(1, 0) },
-		{ Vector3(-1, -1, -1), Vector3(0, -1, 0), Vector2(1, 1) },
+		{ Vector3(1, -1, 1), Vector3(0, -1, 0), Vector2(0, 0.5f) },
+		{ Vector3(-1, -1, 1), Vector3(0, -1, 0), Vector2(0.25f, 0.5f) },
+		{ Vector3(-1, -1, -1), Vector3(0, -1, 0), Vector2(0.25f, 1) },
 		//back
-		{ Vector3(1, -1, 1), Vector3(0, 0, 1), Vector2(0, 1) },
-		{ Vector3(1, 1, 1), Vector3(0, 0, 1), Vector2(0, 0) },
-		{ Vector3(-1, 1, 1), Vector3(0, 0, 1), Vector2(1, 0) },
-		{ Vector3(-1, -1, 1), Vector3(0, 0, 1), Vector2(1, 1) }
+		{ Vector3(1, -1, 1), Vector3(0, 0, 1), Vector2(0.25f, 1) },
+		{ Vector3(1, 1, 1), Vector3(0, 0, 1), Vector2(0.25, 0.5f) },
+		{ Vector3(-1, 1, 1), Vector3(0, 0, 1), Vector2(0.5f, 0.5f) },
+		{ Vector3(-1, -1, 1), Vector3(0, 0, 1), Vector2(0.5f, 1) }
 	};
 
 	// Create the index buffer

@@ -59,5 +59,5 @@ bool Enemy::CollisionCheck(PlayerControl& player)
 void Enemy::Render(FX::MyFX& fx, float dTime)
 {
 	fx.Render(mBall, gd3dImmediateContext);
-	FX::SetupPointLight(2, true, mBall.GetPosition(), Vector3(0.7f, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
+	FX::SetupPointLight(2, true, mBall.GetPosition(), Vector3(1, 1, 1), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 }
