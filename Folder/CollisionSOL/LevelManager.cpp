@@ -276,7 +276,9 @@ float cubeY6[115] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 void LevelManager::Initialise(MeshManager& mgr)
 {
 	cubeMesh = mgr.GetMesh("cube");
+	sphereMesh = mgr.GetMesh("sphere");
 	assert(cubeMesh);
+	assert(sphereMesh);
 }
 
 void LevelManager::Render(FX::MyFX& fx)
