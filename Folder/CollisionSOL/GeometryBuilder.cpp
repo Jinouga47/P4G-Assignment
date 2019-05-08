@@ -157,7 +157,7 @@ Mesh& BuildCube(MeshManager& mgr)
 		{ Vector3(-1, -1, -1), Vector3(0, -1, 0), Vector2(0.25f, 1) },
 		//back
 		{ Vector3(1, -1, 1), Vector3(0, 0, 1), Vector2(0.25f, 1) },
-		{ Vector3(1, 1, 1), Vector3(0, 0, 1), Vector2(0.25, 0.5f) },
+		{ Vector3(1, 1, 1), Vector3(0, 0, 1), Vector2(0.25, 0.50f) },
 		{ Vector3(-1, 1, 1), Vector3(0, 0, 1), Vector2(0.5f, 0.5f) },
 		{ Vector3(-1, -1, 1), Vector3(0, 0, 1), Vector2(0.5f, 1) }
 	};
