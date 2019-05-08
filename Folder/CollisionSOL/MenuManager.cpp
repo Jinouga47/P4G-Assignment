@@ -42,7 +42,7 @@ void MenuManager::Start()
 	mQuit.GetScale() = boxScale;
 }
 
-void MenuManager::Update(unique_ptr<DirectX::Keyboard>& m_keyboard, DirectX::SimpleMath::Vector3 mCamPos, int gameState)
+void MenuManager::Update(unique_ptr<DirectX::Keyboard>& m_keyboard, int gameState)
 {
 	this->gameState = gameState;
 	auto state = m_keyboard->GetState();
@@ -82,7 +82,7 @@ void MenuManager::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(450, 430), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Quit (Q)";
 		//the screen space is (0-1000,0-745) fo ui text
-		pF->DrawString(pBatch, mssg.c_str(), Vector2(450, 555), Colours::White, 0, Vector2(0, 0));
+		pF->DrawString(pBatch, mssg.c_str(), Vector2(480, 555), Colours::White, 0, Vector2(0, 0));
 	}
 	else if(gameState == 2 ){
 		mssg = L"Play Game (Enter)";

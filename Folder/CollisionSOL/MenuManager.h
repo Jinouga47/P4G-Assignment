@@ -14,7 +14,7 @@ class MenuManager
 public:
 	void Initialise(MeshManager& mgr);
 	void Start();
-	void Update(std::unique_ptr<DirectX::Keyboard>& keyboard, DirectX::SimpleMath::Vector3 mCamPos, int gameState);
+	void Update(std::unique_ptr<DirectX::Keyboard>& keyboard, int gameState);
 	int getGameState();
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);

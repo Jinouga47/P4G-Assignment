@@ -119,7 +119,7 @@ void Game::Update(float dTime)
 	switch (gameState)
 	{
 	case Game::GameState::START:
-		menus.Update(m_keyboard, mDefCamPos, (int)gameState);
+		menus.Update(m_keyboard, (int)gameState);
 		gameState = (GameState)menus.getGameState();
 		break;
 	case Game::GameState::GAME:
@@ -153,64 +153,6 @@ void Game::Update(float dTime)
 	default:
 		break;
 	}
-
-
-	if (gameState == GameState::GAME) {
-		
-	}
-	else if (gameState == GameState::START) {
-		menus.Update(m_keyboard, mDefCamPos, 1);
-	}
-	
-
-	//menus.Update(state);
-	//
-
-	//switch (state)
-	//{
-	//case Game::GameState::START:
-	//	//display start screen
-	//	break;
-	//case Game::GameState::GAME:
-	//	/*
-	//	if(!loaded)
-	//		lvlManager.LevelLoad(mPlayer, mKey, selectedlevel);
-
-	//	if(player collides with enemy)
-	//		state = GameState::GAMEOVER;
-	//		loaded = false;
-	//	*/
-	//	break;
-	//case Game::GameState::GAMEOVER:
-	//	break;
-	//case Game::GameState::RESULT:
-	//	/*
-	//	if(!loaded)
-	//		lvlManager.LevelLoad(mPlayer, mKey, 1);
-
-	//	if(player collides with enemy)
-	//		state = GameState::GAMEOVER;
-	//		loaded = false;
-	//	*/
-	//	break;
-	//case Game::GameState::HIGHSCORE:
-	//	break;
-	//default:
-	//	break;
-	//}
-	///*
-	//if(state == game)
-	//LevelLoader(selected level(enum), player, key);
-	//if else(state == menu)
-	//dislpay menu;
-	//else if(state == game over)
-	//display game over screen;
-
-
-
-
-
-	//*/
 }
 
 void Game::Render(float dTime)
@@ -278,36 +220,6 @@ void Game::Render(float dTime)
 		break;
 	}
 
-	//wstring mssg, mssg2;
-	//if (mMKInput.GetMouseButton(MouseAndKeys::LBUTTON))
-	//{
-	//	//fire a ray from the camera to the point on the XY plane we mouse clicked on
-	//	Ray ray;
-	//	mMKInput.MousePosToWorldRay(FX::GetViewMatrix(), FX::GetProjectionMatrix(), mCamPos, ray);
-	//	Plane p(Vector3(0, 0, 0), Vector3(0, 0, -1));
-	//	float dist;
-	//	ray.Intersects(p, dist);
-	//	Vector3 pos(ray.position + ray.direction*dist);
-
-	//	//show that we can generate 3D world space mouse click coordinates
-	//	wstringstream sstr;
-	//	sstr.precision(1);
-	//	sstr << L"Mouse move 3D x=" << pos.x << L" y=" << pos.y << L" z=" << pos.z;
-	//	mssg = sstr.str();
-	//	mpFont->DrawString(mpSpriteBatch, mssg.c_str(), Vector2(10, 100), DirectX::Colors::White, 0, Vector2(0, 0), Vector2(1, 1));
-
-	//	//display a saw blade on the mouse clicked XY plane to attack the rock with
-	//	mat = MaterialExt::default;
-	//	mat.pTextureRV = mFX.mCache.LoadTexture("saw2.dds", true, gd3dDevice);
-	//	mat.flags |= MaterialExt::TFlags::ALPHA_TRANSPARENCY;
-	//	mQuad.GetPosition() = pos;
-	//	mQuad.GetRotation() = Vector3(-PI / 2, 0, GetClock() * 4);
-	//	mQuad.GetScale() = Vector3(0.2f, 0.2f, 0.2f);
-	//	mFX.Render(mQuad, gd3dImmediateContext, &mat);
-	//}
-
-	//general messages
-
 	mpSpriteBatch->End();
 
 
@@ -321,16 +233,6 @@ LRESULT Game::WindowsMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 	//do something game specific here
 	switch (msg)
 	{
-		// Respond to a keyboard event.
-	case WM_CHAR:
-		switch (wParam)
-		{
-		case 27:
-		case 'q':
-		case 'Q':
-			PostQuitMessage(0);
-			return 0;
-		}
 	case WM_ACTIVATEAPP:
 		DirectX::Keyboard::ProcessMessage(msg, wParam, lParam);
 		break;

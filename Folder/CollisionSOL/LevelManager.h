@@ -12,6 +12,7 @@
 #include "PlayerControl.h"
 #include "Key.h"
 #include "Door.h"
+#include "Enemy.h"
 class LevelManager
 {
 public:
@@ -27,6 +28,6 @@ public:
 	void LevelLoad(PlayerControl&, Key&, Door&, int);
 private:
 	int size_;
-	Mesh *p;
+	Mesh *cubeMesh, *sphereMesh;
 };
 #endif
