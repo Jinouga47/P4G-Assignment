@@ -105,14 +105,13 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeometryBuilder.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="LevelBuilder.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
-    <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="ShaderTypes.cpp" />
-    <ClCompile Include="StartScreen.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,14 +125,13 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeometryBuilder.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="LevelBuilder.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="ListT.h" />
+    <ClInclude Include="MenuManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PlayerControl.h" />
-    <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="ShaderTypes.h" />
-    <ClInclude Include="StartScreen.h" />
     <ClInclude Include="WindowUtils.h" />
   </ItemGroup>
   <ItemGroup>

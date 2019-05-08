@@ -11,9 +11,9 @@
 #include "Input.h"
 #include "Key.h"
 #include "PlayerControl.h"
-#include "LevelBuilder.h"
+#include "LevelManager.h"
 #include "Enemy.h"
-
+#include "MenuManager.h"
 #include "Door.h"
 
 
@@ -83,13 +83,14 @@ private:
 
 	Key mKey;
 	PlayerControl mPlayer;
-	LevelBuilder mBuilder;
+	LevelManager lvlManager;
 	Enemy mEnemy, mEnemy2, mEnemy3;
 	Door mDoor;
+	MenuManager menus;
 	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
 
-	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE };
-	GameState state = GameState::START;
+	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE, QUIT, PAUSE };
+	GameState gameState = GameState::START;
 };
 
 #endif

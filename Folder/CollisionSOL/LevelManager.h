@@ -1,6 +1,6 @@
 //#pragma once
-#ifndef LEVELBUILDER_H
-#define LEVELBUILDER_H
+#ifndef LEVELMANAGER_H
+#define LEVELMANAGER_H
 
 #include "Mesh.h"
 #include "Model.h"
@@ -12,7 +12,7 @@
 #include "PlayerControl.h"
 #include "Key.h"
 #include "Door.h"
-class LevelBuilder
+class LevelManager
 {
 public:
 	Model mCubes[150];
@@ -23,7 +23,7 @@ public:
 	int Size();
 	void Render(FX::MyFX& fx);
 	Model GetCubes(int i);
-	void Collision(PlayerControl&, Key&);
+	void Collision(PlayerControl&, Key&, Door&);
 	void LevelLoad(PlayerControl&, Key&, Door&, int);
 private:
 	int size_;

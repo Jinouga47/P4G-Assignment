@@ -1,7 +1,7 @@
 #include <string>
 #include <iomanip>
 
-#include "LevelBuilder.h"
+#include "LevelManager.h"
 #include "D3D.h"
 
 using namespace std;
@@ -273,14 +273,14 @@ float cubeY6[115] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 
 
-void LevelBuilder::Initialise(MeshManager& mgr)
+void LevelManager::Initialise(MeshManager& mgr)
 {
 	p = mgr.GetMesh("cube");
 	
 	assert(p);
 }
 
-void LevelBuilder::Render(FX::MyFX& fx)
+void LevelManager::Render(FX::MyFX& fx)
 {
 	for (int i = 0; i < size_; i++) {
 		MaterialExt mat;
@@ -290,12 +290,12 @@ void LevelBuilder::Render(FX::MyFX& fx)
 	}
 }
 
-Model LevelBuilder::GetCubes(int i)
+Model LevelManager::GetCubes(int i)
 {
 	return mCubes[i];
 }
 
-void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, Door& door, int level)
+void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int level)
 {
 	switch (level) {
 	case 1:
@@ -379,15 +379,23 @@ void LevelBuilder::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 	}
 }
 
-int LevelBuilder::Size()
+int LevelManager::Size()
 {
 	return size_;
 }
 
-void LevelBuilder::Collision(PlayerControl& player, Key& key)
+void LevelManager::Collision(PlayerControl& player, Key& key, Door& door/*pass in gamestate here*/)
 {
 	for (int i = 0; i < size_; i++)
 	{
 		cubiesArray[i].CollisionManager(player);
 	}
+
+	//if (door.CollisionCheck(player) && key.obtained) {
+	//	//result state
+	//}
+	//else if (/*enemy.CollisionCheck(player)*/) {
+	//	//gameover state
+	//}
+		
 }

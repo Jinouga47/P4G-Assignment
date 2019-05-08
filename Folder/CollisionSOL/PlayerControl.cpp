@@ -8,6 +8,8 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+float temp = 0;
+
 void PlayerControl::Initialise(MeshManager& mgr)
 {
 	Mesh *p = mgr.GetMesh("cube");
@@ -75,7 +77,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 
 void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>& m_keyboard)
 {
-
+	temp += dTime;
 	if (mVel.y > 4)
 		mVel.y = 4;
 
@@ -135,9 +137,11 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	sq << L"Position 'y'= " << playerObject.GetPosition().y;
 	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
-	wstringstream se;
-	se << std::setprecision(3);
-	se << L"Direction=" << Direction;
-	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	if (temp > 0) {
+		wstringstream se;
+		se << std::setprecision(1);
+		se << L"Direction=" << temp / 10;
+		pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	}
 }
 
