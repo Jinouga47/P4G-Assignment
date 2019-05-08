@@ -124,7 +124,7 @@ void Game::Update(float dTime)
 		break;
 	case Game::GameState::GAME:
 		mPlayer.Input(m_keyboard);
-		lvlManager.Collision(mPlayer, mKey, mDoor);
+		lvlManager.Update(mPlayer, mKey, mDoor, 1);
 		mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
 		mKey.Update(dTime, mPlayer);
 		mDoor.Update(dTime, mPlayer);

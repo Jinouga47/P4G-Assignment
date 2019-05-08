@@ -296,7 +296,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 	switch (level) {
 	case 1:
 		for (int i = 0; i < 143; i++) {
-			cubies.Initialise(*p, cubeX[i], cubeY[i]);
+			cubies.Initialise(*cubeMesh, cubeX[i], cubeY[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
@@ -309,7 +309,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		break;
 	case 2:
 		for (int i = 0; i < 83; i++) {
-			cubies.Initialise(*p, cubeX2[i], cubeY2[i]);
+			cubies.Initialise(*cubeMesh, cubeX2[i], cubeY2[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
@@ -322,7 +322,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		break;
 	case 3:
 		for (int i = 0; i < 83; i++) {
-			cubies.Initialise(*p, cubeX2[i], cubeY2[i]);
+			cubies.Initialise(*cubeMesh, cubeX2[i], cubeY2[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
@@ -335,7 +335,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		break;
 	case 4:
 		for (int i = 0; i < 117; i++) {
-			cubies.Initialise(*p, cubeX4[i], cubeY4[i]);
+			cubies.Initialise(*cubeMesh, cubeX4[i], cubeY4[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
@@ -348,7 +348,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		break;
 	case 5:
 		for (int i = 0; i < 81; i++) {
-			cubies.Initialise(*p, cubeX5[i], cubeY5[i]);
+			cubies.Initialise(*cubeMesh, cubeX5[i], cubeY5[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
@@ -361,7 +361,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		break;
 	case 6:
 		for (int i = 0; i < 116; i++) {
-			cubies.Initialise(*p, cubeX6[i], cubeY6[i]);
+			cubies.Initialise(*cubeMesh, cubeX6[i], cubeY6[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
