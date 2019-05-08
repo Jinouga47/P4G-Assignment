@@ -23,7 +23,7 @@ void MenuManager::Initialise(MeshManager& mgr)
 	mPlayGame.SetOverrideMat(&mat);
 	mOptions.SetOverrideMat(&mat);
 	mQuit.SetOverrideMat(&mat);
-	p = mgr.GetMesh("cube");
+	//p = mgr.GetMesh("cube");
 	assert(p);
 	Start();
 }
@@ -73,7 +73,7 @@ void MenuManager::Render(FX::MyFX& fx, float dTime)
 void MenuManager::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 {
 	wstring mssg;
-	if (gameState == 1) {
+	if (gameState == 0) {
 		mssg = L"Play Game (Enter)";
 		//the screen space is (0-1000,0-745) fo ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(420, 305), Colours::White, 0, Vector2(0, 0));

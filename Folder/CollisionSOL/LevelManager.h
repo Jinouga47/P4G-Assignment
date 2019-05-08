@@ -30,5 +30,6 @@ public:
 private:
 	int size_;
 	Mesh *cubeMesh, *sphereMesh;
+	int enemyDelay = 350;
 };
 #endif

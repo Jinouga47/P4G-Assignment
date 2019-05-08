@@ -24,6 +24,9 @@ void Game::Load()
 	mSphere.Initialise(BuildSphere(mMeshMgr, 16, 16));
 
 	mCube.Initialise(BuildCube(mMeshMgr));
+	MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
+	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX.mCache.LoadTexture("cube.dds", true, gd3dDevice);
 
 
 
