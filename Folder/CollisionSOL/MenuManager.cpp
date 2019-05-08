@@ -76,7 +76,7 @@ void MenuManager::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	if (gameState == 1) {
 		mssg = L"Play Game (Enter)";
 		//the screen space is (0-1000,0-745) fo ui text
-		pF->DrawString(pBatch, mssg.c_str(), Vector2(450, 305), Colours::White, 0, Vector2(0, 0));
+		pF->DrawString(pBatch, mssg.c_str(), Vector2(420, 305), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Synopsis (S)";
 		//the screen space is (0-1000,0-745) fo ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(450, 430), Colours::White, 0, Vector2(0, 0));
