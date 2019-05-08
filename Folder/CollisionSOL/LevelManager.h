@@ -16,10 +16,10 @@
 class LevelManager
 {
 public:
-	Model mCubes[150];
+	Model mCubes[160];
 	Model mPlayer, mEnemy_1, mEnemy_2, mEnemy_3, mKey, mDoor;
 	CubeClass cubies;
-	CubeClass cubiesArray[150];
+	CubeClass cubiesArray[160];
 
 	void Initialise(MeshManager& mgr);
 	int Size();

@@ -96,28 +96,28 @@ float cubeY2[83] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 					9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f, 9.5f};
 
 //Third Level
-float cubeX3[153] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,		//Bottom of level 
+float cubeX3[155] = {0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f,		//Bottom of level 
 					0, 9.5f,
 					0, 9.5f,
 					0, 9.5f,
-					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8,						//First platform
+					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 9.5f,				//First platform
 					0, 9.5f,
 					0, 9.5f,
 					0, 9.5f,
-					0, 1.5f, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 8, 8.5, 9, 9.5f,							//Second platform
+					0, 1.5f, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5f, 8, 8.5, 9, 9.5f,						//Second platform
 					0, 3, 4, 8, 9.5f,
 					0, 2, 3, 8, 9.5f,
 					0, 2, 4, 9.5f,
 					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 9, 9.5f,				//Third platform
 					0, 5, 6, 7, 9.5f,
 					0, 9.5f,
-					0, 1, 5, 5.5f, 6, 6.5f, 7, 7.5, 8, 9, 9.5f,														//Fourth platform part 1
+					0, 1, 5, 5.5f, 6, 6.5f, 7, 7.5, 8, 9.5f,														//Fourth platform part 1
 					0, 1.5f, 5, 9.5f,																				//part 2
 					0, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 9.5f,															//part 3
 					0, 9.5f,
 					0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f, 4, 4.5f, 5, 5.5f, 6, 6.5f, 7, 7.5f, 8, 8.5f, 9, 9.5f};		//Top of level
 
-float cubeY3[153] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,									//Bottom of level
+float cubeY3[155] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,									//Bottom of level
 					0.5f, 0.5f,
 					1, 1,
 					1.5f, 1.5f,
@@ -303,9 +303,9 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(4, 4, 0));
+		player.Start(Vector3(1, 1, 0));
 		key.Start(Vector3(1, 6, 0));
-		door.Start(Vector3(2, 6, 0));
+		door.Start(Vector3(1, 3, 0));
 		break;
 	case 2:
 		for (int i = 0; i < 83; i++) {
@@ -316,22 +316,22 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(3, 4, 0));
-		key.Start(Vector3(8.5f, 1, 0));
-		door.Start(Vector3(1, 6, 0));
+		player.Start(Vector3(1, 1, 0));
+		key.Start(Vector3(9, 1.5f, 0));
+		door.Start(Vector3(0.5f, 3, 0));
 		break;
 	case 3:
-		for (int i = 0; i < 83; i++) {
-			cubies.Initialise(*cubeMesh, cubeX2[i], cubeY2[i]);
+		for (int i = 0; i < 155; i++) {
+			cubies.Initialise(*cubeMesh, cubeX3[i], cubeY3[i]);
 
 			cubiesArray[i] = cubies;
 			mCubes[i] = cubies.GetCube();
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(3, 4, 0));
-		key.Start(Vector3(8.5f, 1, 0));
-		door.Start(Vector3(1, 6, 0));
+		player.Start(Vector3(1, 1, 0));
+		key.Start(Vector3(3, 7.5f, 0));
+		door.Start(Vector3(1, 1, 0));
 		break;
 	case 4:
 		for (int i = 0; i < 117; i++) {
@@ -342,9 +342,9 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(3, 4, 0));
-		key.Start(Vector3(8.5f, 1, 0));
-		door.Start(Vector3(1, 6, 0));
+		player.Start(Vector3(1, 1, 0));
+		key.Start(Vector3(4.5f, 8.5f, 0));
+		door.Start(Vector3(4.5f, 3, 0));
 		break;
 	case 5:
 		for (int i = 0; i < 81; i++) {
@@ -355,9 +355,9 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(3, 4, 0));
-		key.Start(Vector3(8.5f, 1, 0));
-		door.Start(Vector3(1, 6, 0));
+		player.Start(Vector3(0.5f, 8.5f, 0));
+		key.Start(Vector3(8.5f, 1.5f, 0));
+		door.Start(Vector3(0.5f, 1, 0));
 		break;
 	case 6:
 		for (int i = 0; i < 116; i++) {
@@ -368,9 +368,9 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 			size_ = i + 1;
 			//Puts the the cube in the array
 		}
-		player.Start(Vector3(3, 4, 0));
-		key.Start(Vector3(8.5f, 1, 0));
-		door.Start(Vector3(1, 6, 0));
+		player.Start(Vector3(4.5f, 3.5f, 0));
+		key.Start(Vector3(8.5f, 6.5f, 0));
+		door.Start(Vector3(1.5f, 6.5f, 0));
 		break;
 	}
 }

@@ -34,7 +34,7 @@ void Game::Load()
 	lvlManager.Initialise(mMeshMgr);
 	mKey.Initialise(mMeshMgr);
 	mDoor.Initialise(mMeshMgr);
-	lvlManager.LevelLoad(mPlayer, mKey, mDoor, 6);
+	lvlManager.LevelLoad(mPlayer, mKey, mDoor, 1);
 	mEnemy.Initialise(mMeshMgr, 350);
 	mEnemy2.Initialise(mMeshMgr, 700);
 	mEnemy3.Initialise(mMeshMgr, 1050);
