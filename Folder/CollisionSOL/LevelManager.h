@@ -17,6 +17,7 @@ class LevelManager
 {
 public:
 	Model mCubes[150];
+	Model mPlayer, mEnemy_1, mEnemy_2, mEnemy_3, mKey, mDoor;
 	CubeClass cubies;
 	CubeClass cubiesArray[150];
 
@@ -24,7 +25,7 @@ public:
 	int Size();
 	void Render(FX::MyFX& fx);
 	Model GetCubes(int i);
-	void Collision(PlayerControl&, Key&, Door&);
+	void Update(PlayerControl&, Key&, Door&, int);
 	void LevelLoad(PlayerControl&, Key&, Door&, int);
 private:
 	int size_;
