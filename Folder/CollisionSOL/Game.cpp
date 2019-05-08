@@ -25,11 +25,16 @@ void Game::Load()
 
 	mCube.Initialise(BuildCube(mMeshMgr));
 
+
+
+	menus.Initialise(mMeshMgr);
+
+
 	mPlayer.Initialise(mMeshMgr);
-	mBuilder.Initialise(mMeshMgr);
+	lvlManager.Initialise(mMeshMgr);
 	mKey.Initialise(mMeshMgr);
 	mDoor.Initialise(mMeshMgr);
-	mBuilder.LevelLoad(mPlayer, mKey, mDoor, 6);
+	lvlManager.LevelLoad(mPlayer, mKey, mDoor, 6);
 	mEnemy.Initialise(mMeshMgr, 350);
 	mEnemy2.Initialise(mMeshMgr, 700);
 	mEnemy3.Initialise(mMeshMgr, 1050);
@@ -109,24 +114,57 @@ void Game::Update(float dTime)
 	//don't update anything that relies on loaded assets until they are loaded
 	if (mLoadData.running)
 		return;
-	mPlayer.Input(m_keyboard);
-	mBuilder.Collision(mPlayer, mKey);
-	mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
-	mKey.Update(dTime, mPlayer);
-	mDoor.Update(dTime, mPlayer);
-	playerPosList.push_back(mPlayer.playerObject.GetPosition());
-	mEnemy.Update(dTime, &playerPosList);
-	mEnemy2.Update(dTime, &playerPosList);
-	mEnemy3.Update(dTime, &playerPosList);
-	if (mKey.obtained && mDoor.CollisionCheck(mPlayer)) {
-		state = GameState::RESULT;
-		PostQuitMessage(0);
-		return;
+
+
+	switch (gameState)
+	{
+	case Game::GameState::START:
+		menus.Update(m_keyboard, mDefCamPos, (int)gameState);
+		gameState = (GameState)menus.getGameState();
+		break;
+	case Game::GameState::GAME:
+		mPlayer.Input(m_keyboard);
+		lvlManager.Collision(mPlayer, mKey, mDoor);
+		mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
+		mKey.Update(dTime, mPlayer);
+		mDoor.Update(dTime, mPlayer);
+		playerPosList.push_back(mPlayer.playerObject.GetPosition());
+		mEnemy.Update(dTime, &playerPosList);
+		mEnemy2.Update(dTime, &playerPosList);
+		mEnemy3.Update(dTime, &playerPosList);
+		if (mKey.obtained && mDoor.CollisionCheck(mPlayer)) {
+			gameState = GameState::RESULT;
+			PostQuitMessage(0);
+			return;
+		}
+		if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
+			//PostQuitMessage(0);
+			//return;
+		}
+		break;
+	case Game::GameState::GAMEOVER:
+		break;
+	case Game::GameState::RESULT:
+		break;
+	case Game::GameState::HIGHSCORE:
+		break;
+	case Game::GameState::QUIT:
+		break;
+	default:
+		break;
 	}
-	if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
-		//PostQuitMessage(0);
-		//return;
+
+
+	if (gameState == GameState::GAME) {
+		
 	}
+	else if (gameState == GameState::START) {
+		menus.Update(m_keyboard, mDefCamPos, 1);
+	}
+	
+
+	//menus.Update(state);
+	//
 
 	//switch (state)
 	//{
@@ -136,7 +174,7 @@ void Game::Update(float dTime)
 	//case Game::GameState::GAME:
 	//	/*
 	//	if(!loaded)
-	//		mBuilder.LevelLoad(mPlayer, mKey, selectedlevel);
+	//		lvlManager.LevelLoad(mPlayer, mKey, selectedlevel);
 
 	//	if(player collides with enemy)
 	//		state = GameState::GAMEOVER;
@@ -148,7 +186,7 @@ void Game::Update(float dTime)
 	//case Game::GameState::RESULT:
 	//	/*
 	//	if(!loaded)
-	//		mBuilder.LevelLoad(mPlayer, mKey, 1);
+	//		lvlManager.LevelLoad(mPlayer, mKey, 1);
 
 	//	if(player collides with enemy)
 	//		state = GameState::GAMEOVER;
@@ -197,18 +235,48 @@ void Game::Render(float dTime)
 	CreateProjectionMatrix(FX::GetProjectionMatrix(), 0.25f*PI, GetAspectRatio(), 1, 1000.f);
 
 	MaterialExt mat = MaterialExt::default;
-	mPlayer.Render(mFX, dTime);
-	mBuilder.Render(mFX);
-	mEnemy.Render(mFX, dTime);
-	mEnemy2.Render(mFX, dTime);
-	mEnemy3.Render(mFX, dTime);
-	if (!mKey.obtained)
-		mKey.Render(mFX);
-	else
-		mDoor.Render(mFX);
 
 	CommonStates state(gd3dDevice);
 	mpSpriteBatch->Begin(SpriteSortMode_Deferred, state.NonPremultiplied());
+
+	wstringstream ss;
+	if (dTime > 0)
+		ss << L"FPS: " << (int)(1.f / dTime);
+	else
+		ss << L"FPS: 0";
+	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
+
+	switch (gameState)
+	{
+	case Game::GameState::START:
+		menus.Render(mFX, dTime);
+		menus.RenderText(mpFont, mpSpriteBatch);
+		break;
+	case Game::GameState::GAME:
+		mPlayer.Render(mFX, dTime);
+		mPlayer.RenderText(mpFont, mpSpriteBatch);
+		lvlManager.Render(mFX);
+		mEnemy.Render(mFX, dTime);
+		mEnemy2.Render(mFX, dTime);
+		mEnemy3.Render(mFX, dTime);
+		if (!mKey.obtained)
+			mKey.Render(mFX);
+		else
+			mDoor.Render(mFX);
+		break;
+	case Game::GameState::GAMEOVER:
+		break;
+	case Game::GameState::RESULT:
+		break;
+	case Game::GameState::HIGHSCORE:
+		break;
+	case Game::GameState::QUIT:
+		PostQuitMessage(0);
+		return;
+		break;
+	default:
+		break;
+	}
 
 	//wstring mssg, mssg2;
 	//if (mMKInput.GetMouseButton(MouseAndKeys::LBUTTON))
@@ -239,14 +307,6 @@ void Game::Render(float dTime)
 	//}
 
 	//general messages
-	wstringstream ss;
-	if (dTime > 0)
-		ss << L"FPS: " << (int)(1.f / dTime);
-	else
-		ss << L"FPS: 0";
-	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
-
-	mPlayer.RenderText(mpFont, mpSpriteBatch);
 
 	mpSpriteBatch->End();
 
