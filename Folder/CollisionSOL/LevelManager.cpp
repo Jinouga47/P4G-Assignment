@@ -276,12 +276,16 @@ float cubeY6[115] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 void LevelManager::Initialise(MeshManager& mgr)
 {
 	p = mgr.GetMesh("cube");
+	
 	assert(p);
 }
 
 void LevelManager::Render(FX::MyFX& fx)
 {
 	for (int i = 0; i < size_; i++) {
+		MaterialExt mat;
+		mat.pTextureRV = fx.mCache.LoadTexture("cube.dds", true, gd3dDevice);
+		mCubes[i].SetOverrideMat(&mat);
 		fx.Render(mCubes[i], gd3dImmediateContext);
 	}
 }

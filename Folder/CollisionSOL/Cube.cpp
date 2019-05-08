@@ -16,7 +16,7 @@ void CubeClass::Initialise(Mesh& mesh, float x_, float y_)
 	mCube.Initialise(mesh);
 
 	mCube.GetPosition() = Vector3(x, y, 0);
-
+//	mCube.GetRotation() = Vector3(-PI/2, PI, 0);
 	mCube.GetScale() = Vector3(0.25f, 0.25f, 0.25f);
 }
 
