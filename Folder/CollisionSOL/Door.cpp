@@ -23,8 +23,8 @@ void Door::Initialise(MeshManager& mgr)
 
 void Door::Start(Vector3 startPos)
 {
-	mVel = Vector3(0, 1, 0) * -2;
-	mGrav = Vector3(0, -5.5f, 0);
+	mVel = Vector3(0, 0, 0) * -2;					//Middle value to 1 for moving door
+	mGrav = Vector3(0, 0, 0);					//Middle value to -5.5f for moving door
 	mAccel = Vector3(0, 0, 0);
 	mCube.GetPosition() = startPos;
 	hoverCentre = startPos.y;

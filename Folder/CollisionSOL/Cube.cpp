@@ -73,7 +73,7 @@ void CubeClass::CollisionManager(PlayerControl& player_)
 			player_.mVel.x = 0;
 			player.GetPosition().x = mCube.GetScale().x + mCube.GetPosition().x + player.GetScale().x + tempXBuffer;
 		}
-		else if ((player.GetPosition().y <= B.y) && (player.GetPosition().y <= C.y) && player_.Airborne) { //Wall fast fall issue on both sides but no corner glitch
+		else if ((player.GetPosition().y <= B.y) && (player.GetPosition().y <= C.y) && player_.Airborne) {
 			player_.mVel.y = -2;
 			player_.mDblVel.y = -2;
 		}

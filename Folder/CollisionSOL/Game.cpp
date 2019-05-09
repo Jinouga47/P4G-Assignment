@@ -12,6 +12,8 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+int temp = 1;
+
 void Game::OnResize(int screenWidth, int screenHeight)
 {
 	OnResize_Default(screenWidth, screenHeight);
@@ -24,8 +26,12 @@ void Game::Load()
 	mSphere.Initialise(BuildSphere(mMeshMgr, 16, 16));
 
 	mCube.Initialise(BuildCube(mMeshMgr));
+	MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
+	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
+	pMat->pTextureRV = mFX.mCache.LoadTexture("cube.dds", true, gd3dDevice);
 
-
+	//Level counter, used to switch between levels after clearing one
+	temp = 1;
 
 	menus.Initialise(mMeshMgr);
 
@@ -34,7 +40,7 @@ void Game::Load()
 	lvlManager.Initialise(mMeshMgr);
 	mKey.Initialise(mMeshMgr);
 	mDoor.Initialise(mMeshMgr);
-	lvlManager.LevelLoad(mPlayer, mKey, mDoor, 6);
+	lvlManager.LevelLoad(mPlayer, mKey, mDoor, temp);
 	mEnemy.Initialise(mMeshMgr, 350);
 	mEnemy2.Initialise(mMeshMgr, 700);
 	mEnemy3.Initialise(mMeshMgr, 1050);
@@ -133,8 +139,9 @@ void Game::Update(float dTime)
 		mEnemy2.Update(dTime, &playerPosList);
 		mEnemy3.Update(dTime, &playerPosList);
 		if (mKey.obtained && mDoor.CollisionCheck(mPlayer)) {
-			gameState = GameState::RESULT;
-			PostQuitMessage(0);
+			//Increments the level number and loads the next one
+			temp++;														
+			lvlManager.LevelLoad(mPlayer, mKey, mDoor, temp);
 			return;
 		}
 		if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
@@ -186,7 +193,7 @@ void Game::Render(float dTime)
 		ss << L"FPS: " << (int)(1.f / dTime);
 	else
 		ss << L"FPS: 0";
-	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
+	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::Black, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
 
 	switch (gameState)
 	{
