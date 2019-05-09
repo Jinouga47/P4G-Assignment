@@ -8,8 +8,6 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-float temp = 0;
-
 void PlayerControl::Initialise(MeshManager& mgr)
 {
 	Mesh *p = mgr.GetMesh("cube");
@@ -59,10 +57,10 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 		Airborne = true;
 		SecondJump = true;
 		//bounce up
-		//mVel.y *= -1;
 		mVel.y = 5;
 		//lose energy
 		mVel *= mCOR;
+		playerObject.GetPosition().y += playerObject.GetScale().y;
 	}
 	else if (tracker.pressed.W && Airborne && SecondJump)
 	{
@@ -77,7 +75,7 @@ void PlayerControl::Input(std::unique_ptr<DirectX::Keyboard>& m_keyboard) {
 
 void PlayerControl::Update(float dTime, float dTime2, const Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>& m_keyboard)
 {
-	temp += dTime;
+	Timer += dTime;
 	if (mVel.y > 4)
 		mVel.y = 4;
 
@@ -125,23 +123,15 @@ void PlayerControl::Render(FX::MyFX& fx, float dTime)
 	FX::SetupPointLight(1, true, playerObject.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 }
 
+float PlayerControl::GetTimer() {
+	return Timer / 10;
+}
+
 void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 {
-	wstringstream ss;
-	ss << std::setprecision(3);
-	ss << L"Position 'x'= " << playerObject.GetPosition().x;
-	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	wstringstream sq;
-	sq << std::setprecision(3);
-	sq << L"Position 'y'= " << playerObject.GetPosition().y;
-	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-
-	if (temp > 0) {
-		wstringstream se;
-		se << std::setprecision(1);
-		se << L"Direction=" << temp / 10;
-		pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
-	}
+	wstringstream se;
+	se << std::setprecision(3);
+	se << L"Time: " << Timer / 10;
+	pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 }
 

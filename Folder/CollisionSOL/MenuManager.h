@@ -17,7 +17,7 @@ public:
 	void Update(std::unique_ptr<DirectX::Keyboard>& keyboard, int gameState);
 	int getGameState();
 	void Render(FX::MyFX& fx, float dTime);
-	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
+	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch, float timer);
 private:
 	Model mPlayGame, mOptions, mQuit;
 	int gameState;

@@ -17,19 +17,21 @@ class LevelManager
 {
 public:
 	Model mCubes[160];
-	Model mPlayer, mEnemy_1, mEnemy_2, mEnemy_3, mKey, mDoor;
 	CubeClass cubies;
 	CubeClass cubiesArray[160];
 
 	void Initialise(MeshManager& mgr);
-	int Size();
+	int GetGameState();
+	//void LevelLoad(PlayerControl & player, Key & key, Door & door, Enemy & enemy1, Enemy & enemy2, Enemy & enemy3, int level, vector<Vector3>& playerPosList);
 	void Render(FX::MyFX& fx);
 	Model GetCubes(int i);
-	void Update(PlayerControl&, Key&, Door&, int);
-	void LevelLoad(PlayerControl&, Key&, Door&, int);
+	void Update(PlayerControl&, Key&, Door&, Enemy&, Enemy&, Enemy&, int, std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
+	void LevelLoad(PlayerControl&, Key&, Door&, Enemy&, Enemy&, Enemy&, int, std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
 private:
 	int size_;
 	Mesh *cubeMesh, *sphereMesh;
 	int enemyDelay = 350;
+	int gameState;
+	DirectX::SimpleMath::Vector3 startPos;
 };
 #endif

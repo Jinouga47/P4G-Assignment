@@ -298,7 +298,11 @@ Model LevelManager::GetCubes(int i)
 	return mCubes[i];
 }
 
-void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int level)
+int LevelManager::GetGameState() {
+	return gameState;
+}
+
+void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, Enemy& enemy1, Enemy& enemy2, Enemy& enemy3, int level, vector<Vector3>* playerPosList)
 {
 	switch (level) {
 	case 1:
@@ -313,6 +317,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(1, 1, 0));
 		key.Start(Vector3(1, 6, 0));
 		door.Start(Vector3(1, 3, 0));
+		startPos = Vector3(1, 1, 0);
 		break;
 	case 2:
 		for (int i = 0; i < 83; i++) {
@@ -326,6 +331,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(1, 1, 0));
 		key.Start(Vector3(9, 1.5f, 0));
 		door.Start(Vector3(0.5f, 3, 0));
+		startPos = Vector3(1, 1, 0);
 		break;
 	case 3:
 		for (int i = 0; i < 155; i++) {
@@ -339,6 +345,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(1, 1, 0));
 		key.Start(Vector3(3, 7.5f, 0));
 		door.Start(Vector3(1, 1, 0));
+		startPos = Vector3(1, 1, 0);
 		break;
 	case 4:
 		for (int i = 0; i < 117; i++) {
@@ -352,6 +359,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(1, 1, 0));
 		key.Start(Vector3(4.5f, 8.5f, 0));
 		door.Start(Vector3(4.5f, 3, 0));
+		startPos = Vector3(1, 1, 0);
 		break;
 	case 5:
 		for (int i = 0; i < 81; i++) {
@@ -365,6 +373,7 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(0.5f, 8.5f, 0));
 		key.Start(Vector3(8.5f, 1.5f, 0));
 		door.Start(Vector3(0.5f, 1, 0));
+		startPos = Vector3(0.5f, 8.5f, 0);
 		break;
 	case 6:
 		for (int i = 0; i < 116; i++) {
@@ -378,27 +387,30 @@ void LevelManager::LevelLoad(PlayerControl& player, Key& key, Door& door, int le
 		player.Start(Vector3(4.5f, 3.5f, 0));
 		key.Start(Vector3(8.5f, 6.5f, 0));
 		door.Start(Vector3(1.5f, 6.5f, 0));
+		startPos = Vector3(4.5f, 3.5f, 0);
 		break;
+	case 7:
+		gameState = 3;
 	}
+	enemy1.Start(enemyDelay, playerPosList);
+	enemy2.Start(enemyDelay * 2, playerPosList);
+	enemy3.Start(enemyDelay * 3, playerPosList);
 }
 
-int LevelManager::Size()
-{
-	return size_;
-}
-
-void LevelManager::Update(PlayerControl& player, Key& key, Door& door, int gameState)
+void LevelManager::Update(PlayerControl& player, Key& key, Door& door, Enemy& enemy1, Enemy& enemy2, Enemy& enemy3, int gameState, vector<Vector3>* playerPosList)
 {
 	for (int i = 0; i < size_; i++)
 	{
 		cubiesArray[i].CollisionManager(player);
 	}
-
-	//if (door.CollisionCheck(player) && key.obtained) {
-	//	//result state
-	//}
-	//else if (/*enemy.CollisionCheck(player)*/) {
-	//	//gameover state
-	//}
-		
+	if (player.playerObject.GetPosition().x < -1 || player.playerObject.GetPosition().x > 21
+		|| player.playerObject.GetPosition().y > 21 || player.playerObject.GetPosition().y < -1
+		|| enemy1.CollisionCheck(player) || enemy2.CollisionCheck(player) || enemy3.CollisionCheck(player)) {
+		player.Start(startPos);
+		enemy1.Start(enemyDelay, playerPosList);
+		enemy2.Start(enemyDelay * 2, playerPosList);
+		enemy3.Start(enemyDelay * 3, playerPosList);
+		key.obtained = false;
+	}
+	this->gameState = gameState;
 }

@@ -89,8 +89,9 @@ private:
 	MenuManager menus;
 	std::vector<DirectX::SimpleMath::Vector3> playerPosList;
 
-	enum class GameState { START, GAME, GAMEOVER, RESULT, HIGHSCORE, QUIT, PAUSE };
+	enum class GameState { START, GAME, QUIT, RESULT };
 	GameState gameState = GameState::START;
+	int level = 1;
 };
 
 #endif

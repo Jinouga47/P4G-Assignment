@@ -12,8 +12,6 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-int temp = 1;
-
 void Game::OnResize(int screenWidth, int screenHeight)
 {
 	OnResize_Default(screenWidth, screenHeight);
@@ -26,12 +24,6 @@ void Game::Load()
 	mSphere.Initialise(BuildSphere(mMeshMgr, 16, 16));
 
 	mCube.Initialise(BuildCube(mMeshMgr));
-	MaterialExt *pMat = &mCube.GetMesh().GetSubMesh(0).material;
-	//pMat->gfxData.Set(Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0.9f, 0.8f, 0.8f, 0), Vector4(0, 0, 0, 1));
-	pMat->pTextureRV = mFX.mCache.LoadTexture("cube.dds", true, gd3dDevice);
-
-	//Level counter, used to switch between levels after clearing one
-	temp = 1;
 
 	menus.Initialise(mMeshMgr);
 
@@ -40,10 +32,12 @@ void Game::Load()
 	lvlManager.Initialise(mMeshMgr);
 	mKey.Initialise(mMeshMgr);
 	mDoor.Initialise(mMeshMgr);
-	lvlManager.LevelLoad(mPlayer, mKey, mDoor, temp);
-	mEnemy.Initialise(mMeshMgr, 350);
-	mEnemy2.Initialise(mMeshMgr, 700);
-	mEnemy3.Initialise(mMeshMgr, 1050);
+	
+	mEnemy.Initialise(mMeshMgr);
+	mEnemy2.Initialise(mMeshMgr);
+	mEnemy3.Initialise(mMeshMgr);
+
+	lvlManager.LevelLoad(mPlayer, mKey, mDoor, mEnemy, mEnemy2, mEnemy3, level, &playerPosList);
 	mLoadData.loadedSoFar++;
 
 }
@@ -130,7 +124,7 @@ void Game::Update(float dTime)
 		break;
 	case Game::GameState::GAME:
 		mPlayer.Input(m_keyboard);
-		lvlManager.Update(mPlayer, mKey, mDoor, 1);
+		lvlManager.Update(mPlayer, mKey, mDoor, mEnemy, mEnemy2, mEnemy3, (int)gameState, &playerPosList);
 		mPlayer.Update(dTime, dTime, mCamPos, mMKInput, m_keyboard);
 		mKey.Update(dTime, mPlayer);
 		mDoor.Update(dTime, mPlayer);
@@ -138,26 +132,19 @@ void Game::Update(float dTime)
 		mEnemy.Update(dTime, &playerPosList);
 		mEnemy2.Update(dTime, &playerPosList);
 		mEnemy3.Update(dTime, &playerPosList);
+
 		if (mKey.obtained && mDoor.CollisionCheck(mPlayer)) {
-			//Increments the level number and loads the next one
-			temp++;														
-			lvlManager.LevelLoad(mPlayer, mKey, mDoor, temp);
-			return;
+			level++;
+			lvlManager.LevelLoad(mPlayer, mKey, mDoor, mEnemy, mEnemy2, mEnemy3, level, &playerPosList);
 		}
-		if (mEnemy.CollisionCheck(mPlayer) || mEnemy2.CollisionCheck(mPlayer) || mEnemy3.CollisionCheck(mPlayer)) {
-			//PostQuitMessage(0);
-			//return;
-		}
-		break;
-	case Game::GameState::GAMEOVER:
-		break;
-	case Game::GameState::RESULT:
-		break;
-	case Game::GameState::HIGHSCORE:
+		gameState = (GameState)lvlManager.GetGameState();
 		break;
 	case Game::GameState::QUIT:
-		break;
+		PostQuitMessage(0);
+		return;
 	default:
+		menus.Update(m_keyboard, (int)gameState);
+		gameState = (GameState)menus.getGameState();
 		break;
 	}
 }
@@ -199,7 +186,7 @@ void Game::Render(float dTime)
 	{
 	case Game::GameState::START:
 		menus.Render(mFX, dTime);
-		menus.RenderText(mpFont, mpSpriteBatch);
+		menus.RenderText(mpFont, mpSpriteBatch, mPlayer.GetTimer());
 		break;
 	case Game::GameState::GAME:
 		mPlayer.Render(mFX, dTime);
@@ -213,17 +200,12 @@ void Game::Render(float dTime)
 		else
 			mDoor.Render(mFX);
 		break;
-	case Game::GameState::GAMEOVER:
-		break;
-	case Game::GameState::RESULT:
-		break;
-	case Game::GameState::HIGHSCORE:
-		break;
 	case Game::GameState::QUIT:
 		PostQuitMessage(0);
 		return;
-		break;
 	default:
+		menus.Render(mFX, dTime);
+		menus.RenderText(mpFont, mpSpriteBatch, mPlayer.GetTimer());
 		break;
 	}
 

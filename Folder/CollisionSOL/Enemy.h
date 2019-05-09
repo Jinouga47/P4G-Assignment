@@ -26,8 +26,8 @@ public:
 	int delayCounter = 0;
 	int delay;
 	
-	void Initialise(MeshManager& mgr, int delay);
-	void Start();
+	void Initialise(MeshManager& mgr);
+	void Start(int delay, std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
 	void Update(float dTime, const std::vector<DirectX::SimpleMath::Vector3>* playerPosList);
 	bool CollisionCheck(PlayerControl& player);
 	void Render(FX::MyFX& fx, float dTime);

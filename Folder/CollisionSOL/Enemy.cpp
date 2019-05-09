@@ -7,7 +7,7 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-void Enemy::Initialise(MeshManager& mgr, int delayIn)
+void Enemy::Initialise(MeshManager& mgr)
 {
 	Mesh *p = mgr.GetMesh("sphere");
 	assert(p);
@@ -18,15 +18,14 @@ void Enemy::Initialise(MeshManager& mgr, int delayIn)
 	mat.flags &= ~MaterialExt::TFlags::LIT;
 	mat.flags &= ~MaterialExt::TFlags::CCW_WINDING;
 	mBall.SetOverrideMat(&mat);
-
-	delay = delayIn;
-	Start();
-
 }
 
-void Enemy::Start()
+void Enemy::Start(int delayIn, vector<Vector3>* playerPosList)
 {
 	mBall.GetPosition() = Vector3(0.1f, 0.1f, 0);
+	delay = delayIn;
+	delayCounter = 0;
+	playerPosList->clear();
 }
 
 void Enemy::Update(float dTime, const vector<Vector3>* playerPosList)

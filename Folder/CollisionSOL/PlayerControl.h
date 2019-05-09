@@ -28,9 +28,11 @@ public:
 	void Update(float dTime, float dTime2, const DirectX::SimpleMath::Vector3& camPos, MouseAndKeys& input, std::unique_ptr<DirectX::Keyboard>&);
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
+	float GetTimer();
 private:
-	float SpeedLimiter = 0.14f;
+	float SpeedLimiter = 0.15f;
 	float mCOR = 1;
+	float Timer = 0;
 };
 
 #endif
