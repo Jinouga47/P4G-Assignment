@@ -69,6 +69,5 @@ bool Key::CollisionCheck(PlayerControl& player)
 void Key::Render(FX::MyFX& fx)
 {
 	fx.Render(mBall, gd3dImmediateContext);
-	FX::SetupPointLight(1, true, mBall.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 }
 

@@ -27,8 +27,7 @@ public:
 	bool CollisionCheck(PlayerControl&);
 
 private:
-	std::vector<Model> mCubes;
-	int hoverCentre;
+	float hoverCentre;
 	float SpeedLimiter = 0.1f;
 };
 

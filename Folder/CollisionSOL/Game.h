@@ -91,7 +91,7 @@ private:
 
 	enum class GameState { START, GAME, QUIT, RESULT };
 	GameState gameState = GameState::START;
-	int level = 1;
+	int level = 6;
 };
 
 #endif

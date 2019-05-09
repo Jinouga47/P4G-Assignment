@@ -29,6 +29,7 @@ public:
 	void Render(FX::MyFX& fx, float dTime);
 	void RenderText(DirectX::SpriteFont *pF, DirectX::SpriteBatch *pBatch);
 	float GetTimer();
+	void ResetTimer();
 private:
 	float SpeedLimiter = 0.15f;
 	float mCOR = 1;

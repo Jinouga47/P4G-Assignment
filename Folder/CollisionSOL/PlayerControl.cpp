@@ -122,11 +122,14 @@ void PlayerControl::Render(FX::MyFX& fx, float dTime)
 	MaterialExt mat;
 	mat.pTextureRV = fx.mCache.LoadTexture("Player.dds", true, gd3dDevice);
 	fx.Render(playerObject, gd3dImmediateContext, &mat);
-	FX::SetupPointLight(1, true, playerObject.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 }
 
 float PlayerControl::GetTimer() {
 	return Timer / 10;
+}
+
+void PlayerControl::ResetTimer() {
+	Timer = 0;
 }
 
 void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)

@@ -37,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
 {
 	
-	if (!InitMainWindow(1024, 768, hInstance, "MyApp", MainWndProc))
+	if (!InitMainWindow(1024, 768, hInstance, "Spooky Boy v1.0b", MainWndProc))
 		assert(false);
 
 	if (!InitDirect3D(OnResize))

@@ -23,29 +23,12 @@ void Door::Initialise(MeshManager& mgr)
 
 void Door::Start(Vector3 startPos)
 {
-	mVel = Vector3(0, 0, 0) * -2;					//Middle value to 1 for moving door
-	mGrav = Vector3(0, 0, 0);					//Middle value to -5.5f for moving door
-	mAccel = Vector3(0, 0, 0);
 	mCube.GetPosition() = startPos;
-	hoverCentre = startPos.y;
 	obtained = false;
 }
 
 void Door::Update(float dTime, PlayerControl& player)
 {
-	mCube.GetPosition() += mVel * dTime * SpeedLimiter;
-
-	if (mCube.GetPosition().y <= hoverCentre) {
-		mVel -= mGrav * dTime * SpeedLimiter;
-		mVel -= mAccel * dTime * SpeedLimiter;
-		mCube.GetScale() -= mAccel * 2000 * dTime * SpeedLimiter;
-	}
-	else {
-		mVel += mGrav * dTime * SpeedLimiter;
-		mVel += mAccel * dTime * SpeedLimiter;
-		mCube.GetScale() += mAccel * 2000 * dTime * SpeedLimiter;
-	}
-
 	if (!obtained)
 		obtained = CollisionCheck(player);
 }
@@ -69,6 +52,5 @@ bool Door::CollisionCheck(PlayerControl& player)
 void Door::Render(FX::MyFX& fx)
 {
 	fx.Render(mCube, gd3dImmediateContext);
-	FX::SetupPointLight(1, true, mCube.GetPosition(), Vector3(0, 0, 0.7f), Vector3(0, 0, 0), Vector3(0, 0, 1), 10, 0.1f);
 }
 

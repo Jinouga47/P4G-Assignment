@@ -115,6 +115,8 @@ void Game::Update(float dTime)
 	if (mLoadData.running)
 		return;
 
+	if(level == 0 && gameState == GameState::GAME)
+		mPlayer.ResetTimer();
 
 	switch (gameState)
 	{
@@ -145,6 +147,7 @@ void Game::Update(float dTime)
 	default:
 		menus.Update(m_keyboard, (int)gameState);
 		gameState = (GameState)menus.getGameState();
+		level = 0;
 		break;
 	}
 }
