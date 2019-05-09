@@ -130,18 +130,18 @@ void PlayerControl::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstringstream ss;
 	ss << std::setprecision(3);
 	ss << L"Position 'x'= " << playerObject.GetPosition().x;
-	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	pF->DrawString(pBatch, ss.str().c_str(), Vector2(10, 15), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	wstringstream sq;
 	sq << std::setprecision(3);
 	sq << L"Position 'y'= " << playerObject.GetPosition().y;
-	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+	pF->DrawString(pBatch, sq.str().c_str(), Vector2(10, 50), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 
 	if (temp > 0) {
 		wstringstream se;
 		se << std::setprecision(1);
 		se << L"Direction=" << temp / 10;
-		pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::White, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
+		pF->DrawString(pBatch, se.str().c_str(), Vector2(10, 80), Colours::Black, 0, Vector2(0, 0), Vector2(0.7f, 0.7f));
 	}
 }
 

@@ -75,24 +75,27 @@ void MenuManager::RenderText(SpriteFont *pF, SpriteBatch *pBatch)
 	wstring mssg;
 	if (gameState == 0) {
 		mssg = L"Play Game (Enter)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(420, 305), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Synopsis (S)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(450, 430), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Quit (Q)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(480, 555), Colours::White, 0, Vector2(0, 0));
+		mssg = L"SPOOKY BOY";
+		//the screen space is (0-1000,0-745) for ui text
+		pF->DrawString(pBatch, mssg.c_str(), Vector2(420, 200), Colours::Black, 0, Vector2(0, 0), 1.5f);
 	}
 	else if(gameState == 2 ){
 		mssg = L"Play Game (Enter)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(475, 305), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Synopsis (S)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(485, 430), Colours::White, 0, Vector2(0, 0));
 		mssg = L"Quit (Q)";
-		//the screen space is (0-1000,0-745) fo ui text
+		//the screen space is (0-1000,0-745) for ui text
 		pF->DrawString(pBatch, mssg.c_str(), Vector2(500, 555), Colours::White, 0, Vector2(0, 0));
 	}
 

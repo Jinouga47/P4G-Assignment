@@ -193,7 +193,7 @@ void Game::Render(float dTime)
 		ss << L"FPS: " << (int)(1.f / dTime);
 	else
 		ss << L"FPS: 0";
-	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::White, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
+	mpFont->DrawString(mpSpriteBatch, ss.str().c_str(), Vector2(10, 550), Colours::Black, 0, Vector2(0, 0), Vector2(0.5f, 0.5f));
 
 	switch (gameState)
 	{
